@@ -1,28 +1,38 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import "../../css/register.css"
-import {Container, Button, InputGroup} from "react-bootstrap"
+import { Container, Button } from "react-bootstrap"
+import { SET_USER } from '../../Redux/Slices/userSlice'
+import { useDispatch } from "react-redux";
 import { register } from '../../API/Auththentication'
 
 const Register = () => {
+
+    const dispatch = useDispatch();
     const [user, setUser] = useState({
-        name : "",
-        email : "",
-        password : ""
+        name: "",
+        email: "",
+        password: ""
     });
 
-    const handleChange = (e)=>{
-        const {name, value} = e.target;
-        setUser((prev)=>{
-            return{
-            ...prev,
-            [name]: value
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setUser((prev) => {
+            return {
+                ...prev,
+                [name]: value
             }
         })
     }
-    const handleSubmit =  (e)=>{
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(user);
-        register(user);
+        const data = await register(user);
+        if (data) {
+            localStorage.setItem("user", JSON.stringify(data._id));
+            dispatch(SET_USER(data))
+            // navigate("/login");
+            // dispatch(SET_USER(user));
+        }
     }
     return (
         <>

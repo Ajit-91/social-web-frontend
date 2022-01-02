@@ -1,4 +1,5 @@
 
+
 const register = async (user)=>{
     console.log(user);
     try{
@@ -9,11 +10,13 @@ const register = async (user)=>{
             body : JSON.stringify(user)
         })
         const data = await res.json();
-
-        if(res.status == 200){
-            alert(data);
-        }else{
-            alert(data);
+        // console.log("data",data);
+        // console.log("res",res);
+        if(res.status===200){
+            return data;
+        }
+        else{
+            alert(data.msg);
         }
     }catch(err){
         console.log(err);
@@ -32,9 +35,10 @@ const login = async (user)=>{
             body : JSON.stringify(user)
         })
         const data = await res.json();
-
-        if(res.status == 200){
-            return true;
+         console.log("data",data);
+        console.log("res",res);
+        if(res.status === 201){
+            return data;
         }else{
             alert(data);
         }
@@ -43,4 +47,25 @@ const login = async (user)=>{
     }
 }
 
-export {register, login};
+
+const fetchUser = async (userId)=>{
+    try{
+        const res = await fetch("/fetchUser", {
+            method : "POST",
+            headers : {"Content-Type" : "application/json"},
+            body : JSON.stringify({id : userId})
+        })
+    
+        const result = await res.json();
+        if (res.status===200) {
+            return result;
+        } else {
+            console.log(result);
+        }
+    }catch(err){
+        console.log(err)
+    }
+   
+}
+
+export {register, login, fetchUser};
