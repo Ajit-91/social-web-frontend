@@ -30,8 +30,6 @@ const Register = () => {
         if (data) {
             localStorage.setItem("user", JSON.stringify(data._id));
             dispatch(SET_USER(data))
-            // navigate("/login");
-            // dispatch(SET_USER(user));
         }
     }
     return (

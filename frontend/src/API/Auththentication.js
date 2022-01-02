@@ -10,13 +10,12 @@ const register = async (user)=>{
             body : JSON.stringify(user)
         })
         const data = await res.json();
-        // console.log("data",data);
-        // console.log("res",res);
+        
         if(res.status===200){
             return data;
         }
         else{
-            alert(data.msg);
+            alert(data);
         }
     }catch(err){
         console.log(err);
