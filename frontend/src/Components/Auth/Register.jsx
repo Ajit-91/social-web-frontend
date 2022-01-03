@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import "../../css/register.css"
 import { Container, Button } from "react-bootstrap"
+import {Link} from "react-router-dom"
 import { SET_USER } from '../../Redux/Slices/userSlice'
 import { useDispatch } from "react-redux";
 import { register } from '../../API/Auththentication'
@@ -39,7 +40,10 @@ const Register = () => {
                     <input type="text" placeholder='Name' name="name" value={user.name} onChange={handleChange} />
                     <input type="text" placeholder='Email' name="email" value={user.email} onChange={handleChange} />
                     <input type="password" placeholder='Password' name="password" value={user.password} onChange={handleChange} />
+                    <br/>
                     <Button color='primary' type='submit' >Submit</Button>
+                    <br/>
+                <Link to="/login">Login </Link>
                 </form>
             </Container>
         </>

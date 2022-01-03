@@ -1,37 +1,37 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { Container, Button } from "react-bootstrap"
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 import { useDispatch } from "react-redux";
 import { SET_USER } from '../../Redux/Slices/userSlice';
 // import { useNavigate } from 'react-router';
 import { login } from '../../API/Auththentication';
 const Login = () => {
 
-const  dispatch = useDispatch()
+    const dispatch = useDispatch()
 
     const [user, setUser] = useState({
-        email : "",
-        password : ""
+        email: "",
+        password: ""
     });
 
-    const handleChange = (e)=>{
-        const {name, value} = e.target;
-        setUser((prev)=>{
-            return{
-            ...prev, 
-            [name]: value
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setUser((prev) => {
+            return {
+                ...prev,
+                [name]: value
             }
         })
     }
-    const handleSubmit = async (e)=>{
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(user);
-       const data = await login(user);
-       console.log(data)
-       if(data){
-           alert("welecome "+data?.name)
-           localStorage.setItem("user", JSON.stringify(data._id));
-           dispatch(SET_USER(data))
+        const data = await login(user);
+        console.log(data)
+        if (data) {
+            alert("welecome " + data?.name)
+            localStorage.setItem("user", JSON.stringify(data._id));
+            dispatch(SET_USER(data))
         }
     }
     return (
@@ -40,10 +40,11 @@ const  dispatch = useDispatch()
                 <form id="registerForm" onSubmit={handleSubmit}>
                     <input type="text" placeholder='Email' name="email" value={user.name} onChange={handleChange} />
                     <input type="password" placeholder='Password' name="password" value={user.password} onChange={handleChange} />
+                    <br />
                     <Button color='primary' type='submit' >Submit</Button>
+                    <br />
+                    <Link to="/register">create account</Link>
                 </form>
-                <br/>
-                <Link to="/register">create account</Link>
             </Container>
         </>
     )
