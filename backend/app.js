@@ -11,8 +11,8 @@ mongoose.connect(process.env.DB_CONNECTION).then(()=>{
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(require("./Router/routes"))
-
+app.use(require("./Routes/authRoutes"))
+app.use(require("./Routes/postRoutes"))
 
 
 

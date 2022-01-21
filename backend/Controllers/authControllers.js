@@ -1,10 +1,9 @@
-const express = require("express")
-const router = express.Router();
 const bcrypt = require('bcrypt');
 const User = require("../Models/userSchema")
 
-// =====Register==========
-router.post("/register", async (req, res) => {
+// ========Function to register a user====================
+
+const registerUser = async (req, res) => {
     try {
         const { name, email, password } = req.body;
         if (!email || !name || !password) {
@@ -32,10 +31,11 @@ router.post("/register", async (req, res) => {
         console.log(err);
     }
 
-});
+}
 
-//  ====Login=======
-router.post("/login", async (req, res) => {
+// ========Function to login a user====================
+
+const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
 
@@ -58,10 +58,11 @@ router.post("/login", async (req, res) => {
     } catch (error) {
         console.log(error)
     }
-})
+}
 
+// ========Function to fetch a user====================
 
-router.post("/fetchUser", async (req, res) => {
+const fetchUser = async (req, res) => {
     try {
         const userId = JSON.parse(req.body.id);
         const foundUser = await User.findById(userId);
@@ -73,6 +74,6 @@ router.post("/fetchUser", async (req, res) => {
     } catch (error) {
         console.log(error);
     }
-})
+}
 
-module.exports = router;
+module.exports = { registerUser, loginUser, fetchUser }

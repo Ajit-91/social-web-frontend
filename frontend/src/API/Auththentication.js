@@ -49,7 +49,7 @@ const login = async (user)=>{
 
 const fetchUser = async (userId)=>{
     try{
-        const res = await fetch("/fetchUser", {
+        const res = await fetch("/api/fetchUser", {
             method : "POST",
             headers : {"Content-Type" : "application/json"},
             body : JSON.stringify({id : userId})
