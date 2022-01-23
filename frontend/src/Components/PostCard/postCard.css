@@ -1,0 +1,28 @@
+.postCard{
+    width:500px;
+    margin: 10px auto;
+}
+
+.header{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.headerInfo{
+    margin-left: 25px;
+}
+.headerInfo h6{
+    margin-bottom: 0;
+}
+.postInfo{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.share{
+    margin-left: auto;
+}
+.iconButton{
+    padding: 0 !important;
+}

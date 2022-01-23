@@ -78,4 +78,31 @@ const LikePost = async (req, res) => {
 
 }
 
-module.exports = {createPost, Comment, LikePost}
+// ==========Function to get all  Posts of a particular user ============================
+const fetchUserPosts = async (req, res) =>{
+    try{
+        const userPosts = await Post.find({creator : req.params.userid})
+        console.log(userPosts);
+        res.status(200).json(userPosts)
+    }catch(err){
+        console.log(err)
+        res.status(400).json("Process failed")
+    }
+
+}
+
+// ==========Function to get all  Post ============================
+
+const fetchAllPosts = async (req, res) =>{
+    try{
+        const allPosts = await Post.find()
+        res.status(200).json(allPosts)
+    }catch(err){
+        console.log(err)
+        res.status(400).json("Process failed")
+    }
+
+}
+
+
+module.exports = { createPost, Comment, LikePost, fetchUserPosts, fetchAllPosts }
