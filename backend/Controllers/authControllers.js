@@ -66,8 +66,7 @@ const loginUser = async (req, res) => {
 
 const fetchUser = async (req, res) => {
     try {
-        const userId = JSON.parse(req.body.id);
-        const foundUser = await User.findById(userId).select("-password");
+        const foundUser = await User.findById(req.params.userid).select("-password");
         if (foundUser) {
             res.status(200).json(foundUser);
         } else {
@@ -77,6 +76,8 @@ const fetchUser = async (req, res) => {
         console.log(error);
     }
 }
+
+// ========Function to follow a user====================
 
 const followAUser = async (req, res)=>{
     const follower = await User.findById(req.params.followerId)
@@ -99,4 +100,37 @@ const followAUser = async (req, res)=>{
 
 }
 
-module.exports = { registerUser, loginUser, fetchUser, followAUser }
+// ========Function to update profile of a user====================
+
+const updateProfile = async (req, res)=>{
+    try{
+        const file = req.file
+        const body = req.body
+        let update = {}
+
+        if(file){
+             update = {
+                ...body,
+                profileImg : `${process.env.BASE_URL}/ProfilePics/${file.filename}`
+            }
+        }else{
+            update = {
+                ...body
+            }
+        }
+    
+        const user = await User.findByIdAndUpdate(req.params.userid, update, {new : true}).select("-password")
+        if (user) {
+            res.status(200).json(user);
+        } else {
+            res.status(404).json("User doesn't exist")
+        }
+
+    }catch(err){
+        console.log(err)
+        res.status(400).json("process failed")
+    }
+
+}
+
+module.exports = { registerUser, loginUser, fetchUser, followAUser, updateProfile }

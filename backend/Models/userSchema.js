@@ -14,7 +14,12 @@ const userSchema = new mongoose.Schema({
         required : true
     },
     profileImg : {
-        type : String
+        type : String,
+        default : ""
+    },
+    bio : {
+        type : String,
+        default : "Hi I'm..."
     },
     course : {
         type : String,

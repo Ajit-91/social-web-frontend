@@ -27,7 +27,7 @@ export default function NavList() {
           <ListItemButton style={{pointerEvents : "none"}}>
             <div >
               <h5 className='user'>{user?.name}</h5>
-              <small>user@gmail.com</small>
+              <small>{user?.email}</small>
             </div>
           </ListItemButton>
         </ListItem>
@@ -35,7 +35,7 @@ export default function NavList() {
         <Divider />
 
         <ListItem disablePadding>
-          <ListItemButton onClick={()=>navigate("/profile")}>
+          <ListItemButton onClick={()=>navigate(`/profile/${JSON.parse(localStorage.getItem("user"))}`)}>
               <ListItemIcon>
                 <BsFillPersonFill />
               </ListItemIcon>

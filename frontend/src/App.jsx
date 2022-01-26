@@ -22,7 +22,7 @@ const App = () => {
       try {
         const localUser = localStorage.getItem("user");
         if (localUser) {
-          const userData = await fetchUser(localUser)
+          const userData = await fetchUser(JSON.parse(localUser))
           console.log("app",userData)
           if(userData){
             dispatch(SET_USER(userData));

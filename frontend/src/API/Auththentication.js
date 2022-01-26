@@ -49,10 +49,8 @@ const login = async (user)=>{
 
 const fetchUser = async (userId)=>{
     try{
-        const res = await fetch("/api/fetchUser", {
-            method : "POST",
-            headers : {"Content-Type" : "application/json"},
-            body : JSON.stringify({id : userId})
+        const res = await fetch(`/api/fetchUser/${userId}`, {
+            method : "GET",
         })
     
         const result = await res.json();
@@ -67,4 +65,27 @@ const fetchUser = async (userId)=>{
    
 }
 
-export {register, login, fetchUser};
+const updateProfileApi = async (update, userid)=>{
+    try{
+        const res  = await fetch(`/api/updateprofile/${userid}`,{
+            method : "PUT",
+            body : update
+        })
+        const result = await res.json();
+        console.log("updateRes",result);
+        if (res.status===200) {
+            alert("Saved")
+            return result
+        } else {
+            console.log(result);
+            alert("process failed")
+        }
+
+    }catch(err){
+        console.log(err)
+        alert("process failed")
+
+    }
+}
+
+export {register, login, fetchUser, updateProfileApi};

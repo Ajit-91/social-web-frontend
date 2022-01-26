@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { Container, Navbar, Nav } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
+import { selectUser } from "../../Redux/Slices/userSlice";
 import NavList from "../NavList/NavList"
 import "./navbar.css";
+import { useSelector } from "react-redux";
 
 export default function NavBar() {
 
     const [show, setShow] = useState(false);
+    const user = useSelector(selectUser)
 
   return (
     <div id="nav">
@@ -34,7 +37,9 @@ export default function NavBar() {
                 MY POSTS
               </NavLink>
                 <section className="userInfo" onClick={()=>setShow((prev)=>!prev)}>
-                    <Avatar />
+                    <Avatar
+                      src={user?.profileImg}
+                    />
                 </section>
             </Nav>
           {/* </Navbar.Collapse> */}
