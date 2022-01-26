@@ -1,0 +1,36 @@
+.profilePic{
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
+}
+.leftCard{
+    border-radius: 20px;
+}
+
+.imgRow{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+
+.userDetails{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 70%;
+    margin-top: 20px;
+}
+.atomicDetail{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.followBtn{
+    width: 70%;
+}
+
+.rightCard{
+    border-radius: 20px;
+}

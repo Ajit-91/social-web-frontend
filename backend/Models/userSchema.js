@@ -13,6 +13,29 @@ const userSchema = new mongoose.Schema({
         type : String,
         required : true
     },
+    profileImg : {
+        type : String
+    },
+    course : {
+        type : String,
+        required : true
+    },
+    college : {
+        type : String,
+        required : true
+    },
+    followers : [{
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "User"
+    }],
+    following : [{
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "User"
+    }],
+    postCount : {
+        type : Number,
+        default : 0
+    }
 });
 
 const User = mongoose.model( "User", userSchema);

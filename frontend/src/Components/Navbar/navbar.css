@@ -49,6 +49,9 @@ a:-webkit-any-link {
       align-items: center;
   }
 
+  .userInfo{
+      cursor: pointer;
+  }
   /* .linkContainer{
       display: flex;
       width: 100%;

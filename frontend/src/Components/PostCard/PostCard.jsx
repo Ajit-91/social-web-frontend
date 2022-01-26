@@ -1,6 +1,5 @@
 import React from 'react';
 import { Card, CardImg } from 'react-bootstrap';
-import CardHeader from 'react-bootstrap/esm/CardHeader';
 import Avatar from '@mui/material/Avatar';
 import { IconButton } from '@mui/material';
 import {MdFavoriteBorder} from "react-icons/md"
@@ -10,13 +9,13 @@ import {MdShare} from "react-icons/md"
 import "./postCard.css"
 import { useState } from 'react';
 
-const PostCard = () => {
+const PostCard = ({width}) => {
     const [like, setLike] = useState(false)
 
   return (
   <>
-    <Card className="shadow-lg postCard">
-        <CardHeader className="header">
+    <Card className="shadow-lg postCard" style={{width : `${width}px`}}>
+        <Card.Header className="header">
             <IconButton color='inherit' className='iconButton'>
                 <Avatar />
             </IconButton>
@@ -24,7 +23,7 @@ const PostCard = () => {
                 <h6>UserName</h6>
                 <small>12th Nov 2020</small>
             </div>
-        </CardHeader>
+        </Card.Header>
         <CardImg src='https://th.bing.com/th/id/OIP.i6f_jFoXc-8pQJmo5_JZXAHaD6?w=310&h=180&c=7&r=0&o=5&pid=1.7'/>
         <Card.Body>
     <Card.Title>Post Title</Card.Title>

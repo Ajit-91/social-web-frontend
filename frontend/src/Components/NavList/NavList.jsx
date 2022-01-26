@@ -24,7 +24,7 @@ export default function NavList() {
     <div className='navList shadow-lg'>
       <List >
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton style={{pointerEvents : "none"}}>
             <div >
               <h5 className='user'>{user?.name}</h5>
               <small>user@gmail.com</small>
@@ -35,7 +35,7 @@ export default function NavList() {
         <Divider />
 
         <ListItem disablePadding>
-          <ListItemButton onClick={()=>navigate("/profile/:userid")}>
+          <ListItemButton onClick={()=>navigate("/profile")}>
               <ListItemIcon>
                 <BsFillPersonFill />
               </ListItemIcon>

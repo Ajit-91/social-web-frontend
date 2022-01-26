@@ -30,7 +30,7 @@ export default function NavBar() {
               <NavLink exact activeClassName="activeNavLinks" to="/">
                 HOME
               </NavLink>
-              <NavLink exact activeClassName="activeNavLinks" to="/posts/:userid">
+              <NavLink exact activeClassName="activeNavLinks" to="/myPosts">
                 MY POSTS
               </NavLink>
                 <section className="userInfo" onClick={()=>setShow((prev)=>!prev)}>

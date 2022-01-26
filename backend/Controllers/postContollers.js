@@ -10,7 +10,9 @@ const createPost = async (req, res) => {
         }
 
         const creator = await User.findById(req.params.userId).select("_id")
-
+        creator.postCount += 1;
+        await creator.save()
+        
         const post = new Post({
             creator,
             title,

@@ -5,8 +5,8 @@ const User = require("../Models/userSchema")
 
 const registerUser = async (req, res) => {
     try {
-        const { name, email, password } = req.body;
-        if (!email || !name || !password) {
+        const { name, email, password, course, college } = req.body;
+        if (!email || !name || !password || !course || !college) {
             console.log("one or more fields required");
             return res.status(400).json(" api one or more fields required")
         }
@@ -20,7 +20,9 @@ const registerUser = async (req, res) => {
             const user = new User({
                 name,
                 email,
-                password: hash
+                password: hash,
+                course,
+                college
             });
 
             const savedUser = await user.save();
@@ -65,7 +67,7 @@ const loginUser = async (req, res) => {
 const fetchUser = async (req, res) => {
     try {
         const userId = JSON.parse(req.body.id);
-        const foundUser = await User.findById(userId);
+        const foundUser = await User.findById(userId).select("-password");
         if (foundUser) {
             res.status(200).json(foundUser);
         } else {
@@ -76,4 +78,25 @@ const fetchUser = async (req, res) => {
     }
 }
 
-module.exports = { registerUser, loginUser, fetchUser }
+const followAUser = async (req, res)=>{
+    const follower = await User.findById(req.params.followerId)
+    const followingTo = await User.findById(req.params.followingToId)
+
+    try{
+        if(!follower || !followingTo) return res.status(401).json("process failed")
+
+        follower.follwing.push(req.params.followerId)
+        await follower.save()
+    
+        followingTo.follower.push(req.params.followerId)
+        await followingTo.save()
+    
+        res.status(200).json("Success")
+    }catch(err){
+        console.log(err)
+        return res.status(401).json("process failed due to err")
+    }
+
+}
+
+module.exports = { registerUser, loginUser, fetchUser, followAUser }

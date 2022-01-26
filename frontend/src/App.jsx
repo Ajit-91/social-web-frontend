@@ -9,7 +9,7 @@ import { SET_USER } from './Redux/Slices/userSlice';
 import { useDispatch } from 'react-redux';
 import { fetchUser } from "./API/Auththentication"
 import { useState } from 'react';
-import "./css/app.css"
+import "./pageStyles/app.css"
 const App = () => {
   // state => state.user.user
   const dispatch = useDispatch()

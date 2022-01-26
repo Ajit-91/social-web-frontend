@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import "../../css/register.css"
+import "../../pageStyles/register.css"
 import { Container, Button } from "react-bootstrap"
 import {Link} from "react-router-dom"
 import { SET_USER } from '../../Redux/Slices/userSlice'
