@@ -6,9 +6,8 @@ const postSchema = new mongoose.Schema({
         type : mongoose.Schema.Types.ObjectId,
         ref : "User"
     },
-    title : {
+    postImg : {
         type : String,
-        required : true
     },
     description : {
         type : String,

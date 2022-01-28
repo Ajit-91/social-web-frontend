@@ -2,10 +2,11 @@ const multer = require("multer")
 
 const storage = multer.diskStorage({
     destination : (req, file, cb)=> {
-      cb(null, `Uploads/ProfilePics`)
+      console.log(file)
+      cb(null, `Uploads/${file.fieldname}s`)
     },
     filename : (req, file, cb)=> {
-      const uniqueSuffix = Date.now() + '-' + file.originalname
+      const uniqueSuffix =  file.fieldname + '-' + Date.now() + '-' + file.originalname
       cb(null, uniqueSuffix)
     }
   })

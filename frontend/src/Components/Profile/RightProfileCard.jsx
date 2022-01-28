@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Row, Col } from 'react-bootstrap';
+import { IconButton } from '@mui/material';
 import {FiEdit} from "react-icons/fi"
 import "../../pageStyles/profile.css"
 
@@ -10,7 +11,9 @@ const RightProfileCard = ({userDetails, setUpdateProfile}) => {
               <Card.Header className='bg-white'>
                   <div className='d-flex justify-content-between align-items-center'>
                       PROFILE DETAILS
-                      <FiEdit size={25} style={{cursor : "pointer"}} onClick={()=>setUpdateProfile(true)}/>
+                      <IconButton color='inherit' >
+                            <FiEdit size={25} style={{cursor : "pointer"}} onClick={()=>setUpdateProfile(true)}/>
+                      </IconButton>
                   </div>
               </Card.Header>
               <Card.Body >

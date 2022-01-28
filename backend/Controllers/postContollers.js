@@ -4,19 +4,33 @@ const Post = require("../Models/postSchema")
 // =================Function to Create Post==========================
 const createPost = async (req, res) => {
     try {
-        const { title, description } = req.body;
-        if(!title || !description){
+        const postImg = req.file
+        const description = req.body;
+        if(!description){
             return res.status(400).json("one or more fields required")
         }
 
-        const creator = await User.findById(req.params.userId).select("_id")
+        const creator = await User.findById(req.params.userId)
         creator.postCount += 1;
         await creator.save()
+
+        let postDetails = {}
+        if(postImg){
+            postDetails = {
+                creator : creator._id,
+                postImg : `${process.env.BASE_URL}/postImgs/${postImg.filename}`,
+                ...description
+            }
+        }else{
+            postDetails = {
+                creator : creator._id,
+                ...description
+            }
+        }
         
         const post = new Post({
             creator,
-            title,
-            description
+            ...postDetails
         })
         await post.save();
         //  type msg in resp

@@ -1,0 +1,8 @@
+.createPostBtn{
+    position: fixed !important;
+    z-index: 5;
+    margin: inherit;
+    padding: inherit;
+    bottom: 3rem;
+    right: 6rem;
+}

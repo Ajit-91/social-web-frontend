@@ -111,7 +111,7 @@ const updateProfile = async (req, res)=>{
         if(file){
              update = {
                 ...body,
-                profileImg : `${process.env.BASE_URL}/ProfilePics/${file.filename}`
+                profileImg : `${process.env.BASE_URL}/profileImgs/${file.filename}`
             }
         }else{
             update = {

@@ -22,7 +22,7 @@ const FileUpload = ({setPreviewImage, setImgDetails}, ref) => {
   <div>
       <input type="file" 
       hidden 
-      name='profileImg'
+      // name='profileImg'
       accept='image/*' 
       ref={ref}
       onChange={handleImageChange} 

@@ -1,0 +1,17 @@
+.uploadImg{
+    width: 50%;
+    margin: 0 auto;
+    aspect-ratio: 1/1;
+    border : 3px dashed #0275d8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+}
+.previewImg{
+    width: 50%;
+    aspect-ratio: 1/1;
+    margin: 0 auto;
+    display: block;
+}

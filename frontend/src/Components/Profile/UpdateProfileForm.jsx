@@ -7,6 +7,7 @@ import { SET_USER } from "../../Redux/Slices/userSlice"
 import "../../pageStyles/profile.css"
 import { useDispatch } from 'react-redux';
 import {MdEdit, MdDelete} from "react-icons/md"
+import { IconButton } from '@mui/material';
 
 const UpdateProfileForm = ({updateProfile ,setUpdateProfile, localUser}) => {
     const dispatch = useDispatch()
@@ -66,21 +67,25 @@ const UpdateProfileForm = ({updateProfile ,setUpdateProfile, localUser}) => {
                             <FileUpload ref={inputRef} setPreviewImage={setPreviewImage} setImgDetails={setImgDetails} />
                             <div className='profilePic'>
                                 <div className='picOptions'>
-                                    <MdEdit 
-                                        size={25} 
-                                        style={{cursor : "pointer"}}
-                                        color='white'
-                                        onClick={() => inputRef.current.click()}
-                                    />
-                                    <MdDelete 
-                                        size={25} 
-                                        style={{cursor : "pointer"}}
-                                        color='white'
-                                        onClick={() => {
-                                            setImgDetails("")
-                                            setPreviewImage("")
-                                        }}
-                                    />
+                                    <IconButton color='inherit'>
+                                        <MdEdit 
+                                            size={25} 
+                                            style={{cursor : "pointer"}}
+                                            color='white'
+                                            onClick={() => inputRef.current.click()}
+                                        />
+                                    </IconButton>
+                                    <IconButton color='inherit'>
+                                        <MdDelete 
+                                            size={25} 
+                                            style={{cursor : "pointer"}}
+                                            color='white'
+                                            onClick={() => {
+                                                setImgDetails("")
+                                                setPreviewImage("")
+                                            }}
+                                        />
+                                    </IconButton>
                                 </div>
                             <Avatar
                                 src={previewImage}

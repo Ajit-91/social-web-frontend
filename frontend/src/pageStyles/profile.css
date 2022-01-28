@@ -4,7 +4,6 @@
     margin: 0 auto;
     position: relative;
     border-radius: 50%;
-    transition: all 0.5s;
 }
 .picOptions{
     position: absolute;
@@ -19,6 +18,7 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+
 }
 .profilePic:hover .picOptions{
     z-index: 1;
