@@ -6,12 +6,13 @@ import {updateProfileApi} from "../../API/Auththentication"
 import { SET_USER } from "../../Redux/Slices/userSlice"
 import "../../pageStyles/profile.css"
 import { useDispatch } from 'react-redux';
+import {MdEdit, MdDelete} from "react-icons/md"
 
 const UpdateProfileForm = ({updateProfile ,setUpdateProfile, localUser}) => {
     const dispatch = useDispatch()
     const inputRef = useRef(null)
     const [previewImage, setPreviewImage] = useState(localUser?.profileImg)
-    const [imgDetails, setImgDetails] = useState()
+    const [imgDetails, setImgDetails] = useState(null)
     const [currentDetails, setCurrentDetails] = useState(localUser)
     
     const handleChange = (e)=>{
@@ -27,19 +28,19 @@ const UpdateProfileForm = ({updateProfile ,setUpdateProfile, localUser}) => {
     const handleHide = ()=>{
         setCurrentDetails(localUser)
         setUpdateProfile(false)
-        setImgDetails("")
-        setPreviewImage("")
+        setImgDetails(null)
+        setPreviewImage(localUser?.profileImg)
     }
 
     const handleSubmit = async (e)=>{
         e.preventDefault()
-
+        console.log("submit call")
         const formData = new FormData()
         formData.append("name", currentDetails?.name)
         formData.append("bio", currentDetails?.bio)
-        formData.append("profileImg", imgDetails)
         formData.append("course", currentDetails?.course)
         formData.append("college", currentDetails?.college)
+        if(imgDetails !== null) formData.append("profileImg", imgDetails)
 
         const newDetails = await updateProfileApi(formData, localUser._id)
         if(newDetails) dispatch(SET_USER(newDetails))
@@ -63,14 +64,31 @@ const UpdateProfileForm = ({updateProfile ,setUpdateProfile, localUser}) => {
                     <Card.Body >
                         <Form onSubmit={handleSubmit} >
                             <FileUpload ref={inputRef} setPreviewImage={setPreviewImage} setImgDetails={setImgDetails} />
+                            <div className='profilePic'>
+                                <div className='picOptions'>
+                                    <MdEdit 
+                                        size={25} 
+                                        style={{cursor : "pointer"}}
+                                        color='white'
+                                        onClick={() => inputRef.current.click()}
+                                    />
+                                    <MdDelete 
+                                        size={25} 
+                                        style={{cursor : "pointer"}}
+                                        color='white'
+                                        onClick={() => {
+                                            setImgDetails("")
+                                            setPreviewImage("")
+                                        }}
+                                    />
+                                </div>
                             <Avatar
                                 src={previewImage}
                                 variant='circular'
-                                style={{ cursor: "pointer", margin : "0 auto" }}
-                                onClick={() => inputRef.current.click()}
                                 sx={{ width: 200, height: 200 }}
                                 alt="profile image"
                             />
+                            </div>
                             <Row>
                                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                                     <Form.Label>Bio</Form.Label>

@@ -12,8 +12,6 @@ const LeftProfileCard = ({userDetails}) => {
                             <Avatar
                                 src={userDetails?.profileImg}
                                 variant='circular'
-                                style={{ cursor: "pointer" }}
-                                // onClick={() => inputRef.current.click()}
                                 sx={{ width: 200, height: 200 }}
                                 alt="profile image"
                             />
