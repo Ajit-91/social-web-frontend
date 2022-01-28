@@ -1,25 +1,30 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PostCard from '../../Components/PostCard/PostCard';
+import { fetchAllPosts } from '../../API/Posts';
 import FileUpload from '../../Components/FileUpload/FileUpload';
 import "../../pageStyles/dashboard.css"
 const Dashboard = () => {
-    const [previewImage, setPreviewImage] = useState('')
+    // const [previewImage, setPreviewImage] = useState('')
+    const [posts, setPosts] = useState([])
+    useEffect(()=>{
+        const getAllUserPost = async ()=>{
+            const Posts = await fetchAllPosts()
+            setPosts(Posts)
+            console.log("posts",posts)
+        }
+ 
+        getAllUserPost()
+    }, [])
     return (
         <div className='main'>
-            <PostCard />
-            <br/>
-            <PostCard />
-            <br/>
-            <PostCard />
-            <br/>
-            <PostCard />
-            <br/>
-            <FileUpload setPreviewImage={setPreviewImage} />
-            {
-                previewImage && (
-                    <img src={previewImage} alt='pic' width={300}/>
-                )
-            }
+                    {
+                        posts?.map((value, i)=>(
+                        <>
+                            <PostCard  postDetails={value} key={i} />
+                            <br/>
+                        </>
+                        ))
+                    }
         </div>
     )
 }

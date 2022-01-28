@@ -11,8 +11,6 @@ const createPost = async (req, res) => {
         }
 
         const creator = await User.findById(req.params.userId)
-        creator.postCount += 1;
-        await creator.save()
 
         let postDetails = {}
         if(postImg){
@@ -33,12 +31,13 @@ const createPost = async (req, res) => {
             ...postDetails
         })
         await post.save();
-        //  type msg in resp
+        creator.postCount += 1;
+        const newDetails = await creator.save()
 
-        res.status(200).json("success");
+        res.status(200).json({msg : "success", resp : newDetails});
     } catch (err) {
         console.log(err);
-        res.status(400).json("Process Failed")
+        res.status(400).json({msg : "Process Failed"})
     }
 
 }
@@ -97,8 +96,7 @@ const LikePost = async (req, res) => {
 // ==========Function to get all  Posts of a particular user ============================
 const fetchUserPosts = async (req, res) =>{
     try{
-        const userPosts = await Post.find({creator : req.params.userid})
-        console.log(userPosts);
+        const userPosts = await Post.find({creator : req.params.userid}).populate("creator", "name profileImg")
         res.status(200).json(userPosts)
     }catch(err){
         console.log(err)
@@ -107,11 +105,14 @@ const fetchUserPosts = async (req, res) =>{
 
 }
 
+// ==========Function to get single  Post of a particular user ============================
+
+
 // ==========Function to get all  Post ============================
 
 const fetchAllPosts = async (req, res) =>{
     try{
-        const allPosts = await Post.find()
+        const allPosts = await Post.find().populate("creator", "name profileImg")
         res.status(200).json(allPosts)
     }catch(err){
         console.log(err)

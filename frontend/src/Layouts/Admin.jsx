@@ -11,7 +11,7 @@ const Admin = () => {
             <NavBar />
             <Routes>
                     <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/myPosts" element={<MyPosts />} />
+                    <Route path="/myPosts/:userId" element={<MyPosts />} />
                     <Route path="/singlePost" element={<SinglePost />} />
                     <Route path="/profile/:userid" element={<Profile />} />
                     <Route path="*" element={<Navigate to="/dashboard" />} />

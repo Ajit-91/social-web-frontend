@@ -1,12 +1,16 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState } from 'react';
 import { Card, Row, Form, Modal, Button } from 'react-bootstrap';
+import { SET_USER } from "../../Redux/Slices/userSlice"
+import { useDispatch } from 'react-redux';
 import FileUpload from '../FileUpload/FileUpload';
 import {BsCloudUpload} from "react-icons/bs"
+import {IoMdSend} from "react-icons/io"
 import { createPost } from '../../API/Posts';
 import "./createPost.css"
 
 const CreatePost = ({createPostStatus, setCreatePostStatus}) => {
     const fileUploadRef = useRef(null)
+    const dispatch = useDispatch()
     const [previewImage, setPreviewImage] = useState("")
     const [imgDetails, setImgDetails] = useState(null)
     const [postDetails, setPostDetails] = useState()
@@ -17,9 +21,12 @@ const CreatePost = ({createPostStatus, setCreatePostStatus}) => {
         formData.append("description", postDetails)
         if(imgDetails) formData.append("postImg", imgDetails)
 
-        const resp = await createPost(formData, JSON.parse(localStorage.getItem("user")))
-        alert(resp)
-        setCreatePostStatus(false)
+        const response = await createPost(formData, JSON.parse(localStorage.getItem("user")))
+        if(response.msg === "success"){
+            console.log(response)
+            dispatch(SET_USER(response.resp))
+            handleHide()
+        }
     }
     // const handleChange = (e)=>{
     //     const { name, value } = e.target
@@ -65,10 +72,16 @@ const CreatePost = ({createPostStatus, setCreatePostStatus}) => {
                                             className='aboutSection' 
                                             name='post' 
                                             value={postDetails} 
+                                            required
                                             onChange={(e)=>setPostDetails(e.target.value)} />
                                     </Form.Group>
                                 </Row>
-                                <Button type="submit" variant='success' >Post</Button>
+                                <Button 
+                                    type="submit" 
+                                    variant='success' 
+                                    className='d-flex align-items-center' 
+                                    >   Post &nbsp;<IoMdSend size={20} /> 
+                                    </Button>
 
                             </Form>
                         </Card.Body>
