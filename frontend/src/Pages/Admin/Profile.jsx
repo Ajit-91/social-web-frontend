@@ -48,7 +48,7 @@ const Profile = () => {
                         </Col>
                     </Row>
                     <div style={{ textAlign: "center", display: "block" }}>
-                        <Link to="/myPosts" >See all posts</Link>
+                        <Link to={`/myPosts/${params.userid}`} >See all posts</Link>
                     </div>
                 </Container>
             </div>

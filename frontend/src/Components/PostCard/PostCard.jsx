@@ -2,63 +2,57 @@ import React from 'react';
 import { Card, CardImg } from 'react-bootstrap';
 import Avatar from '@mui/material/Avatar';
 import { IconButton } from '@mui/material';
-import {MdFavoriteBorder} from "react-icons/md"
-import {MdFavorite} from "react-icons/md"
-import {MdComment} from "react-icons/md"
-import {MdShare} from "react-icons/md"
 import { useNavigate } from 'react-router';
+import { formatDate } from '../../Utilities/formatDate';
+import PostInfo from './PostInfo';
 import "./postCard.css"
-import { useState } from 'react';
 
-const PostCard = ({width, postDetails}) => {
-    const [like, setLike] = useState(false)
+const PostCard = ({ width, postDetails }) => {
     const navigate = useNavigate()
-  return (
-  <>
-    <Card className="shadow-lg postCard" style={{width : `${width}px`}}>
-        <Card.Header className="header">
-            <IconButton color='inherit' className='iconButton'>
-                <Avatar src={postDetails?.creator?.profileImg} onClick={()=>navigate(`/profile/${postDetails?.creator?._id}`)} />
-            </IconButton>
-            <div className='headerInfo'>
-                <h6>{postDetails?.creator?.name}</h6>
-                <small>{postDetails?.date}</small>
-            </div>
-        </Card.Header>
-        <CardImg src={postDetails?.postImg}/>
-        <Card.Body>
-    <Card.Title>Post Title</Card.Title>
-        <div className='postInfo'>
-                <div onClick={()=>setLike((prev)=>!prev)} >
-                    {like ? 
+    return (
+        <>
+            <Card className="shadow-lg postCard" style={{ width: `${width}px` }}>
+                <Card.Header className="header bg-light">
                     <IconButton color='inherit' className='iconButton'>
-                        <MdFavorite size="30px" color='red'/> 
+                        <Avatar 
+                            src={postDetails?.creator?.profileImg}  
+                            onClick={() => navigate(`/profile/${postDetails?.creator?._id}`)} 
+                        />
                     </IconButton>
-                    : 
-                    <IconButton color='inherit' className='iconButton'>
-                        <MdFavoriteBorder size="30px" />
-                    </IconButton>
-                    }
-                    <span>&nbsp;{postDetails?.likes?.likeCount}</span>
-                </div>
+                    <div className='headerInfo'>
+                        <h6>{postDetails?.creator?.name}</h6>
+                        <small>{formatDate(postDetails?.date)}</small>
+                    </div>
+                </Card.Header>
+                {
+                    postDetails?.postImg && (
+                            <CardImg 
+                                src={postDetails?.postImg} className='postImg' 
+                                onClick={()=>navigate(`/singlePost/${postDetails?._id}`)}
+                                style={{cursor : "pointer"}}
+                            />
+                    )
+                }
+                <Card.Body 
+                    onClick={()=>navigate(`/singlePost/${postDetails?._id}`)}
+                    style={{cursor : "pointer"}}
+                >
+                    <p 
+                        className='postDescrption'
+                        style={{whiteSpace : `${postDetails?.postImg ? "nowrap" : "normal"}`}}
+                    >
+                        {postDetails?.description}
+                    </p>
+                </Card.Body>
 
-                <div className='mx-4'>
-                    <IconButton color='inherit'>
-                    <MdComment size="30px"/>
-                    </IconButton>
-                    <span>&nbsp;{postDetails?.comments?.length}</span>
-                </div>
-                <div className='share'>
-                    <IconButton color='inherit' className='iconButton'>
-                    <MdShare size="30px" />
-                    </IconButton>
-                </div>
-                
-        </div>
-  </Card.Body>
-    </Card>
-  </>
-  )};
+                <Card.Footer className='bg-white '>
+                    <PostInfo postDetails={postDetails} />
+                </Card.Footer>
+
+            </Card>
+        </>
+    )
+};
 
 export default PostCard;
 

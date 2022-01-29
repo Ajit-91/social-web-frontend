@@ -5,11 +5,10 @@ import CreatePost from '../../Components/CreatePost/CreatePost';
 import Fab from '@mui/material/Fab';
 import {MdAdd} from 'react-icons/md';
 import { fetchUserAllPosts } from '../../API/Posts';
-import { useNavigate, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import "../../pageStyles/myPosts.css"
 
 const MyPosts = () => {
-    // const navigate = useNavigate()
     const params = useParams()
     console.log(params)
     const [createPostStatus, setCreatePostStatus] = useState(false)
@@ -24,11 +23,12 @@ const MyPosts = () => {
         }
  
         getAllUserPost()
-    }, [])
+    }, [params])
+
     return (
         <div className='main'>
             <CreatePost createPostStatus={createPostStatus} setCreatePostStatus={setCreatePostStatus} />
-            <Container className='mb-5 bg-white position-relative'>
+            <Container className='mb-5  position-relative'>
                 <Fab 
                     color='primary' 
                     className="createPostBtn" 
@@ -36,11 +36,11 @@ const MyPosts = () => {
                 >
                     <MdAdd size={25} />
                 </Fab>
-                <Row>
+                <Row className='gy-4'>
                     {
                         posts?.map((value, i)=>(
-                        <Col lg={6} className='d-flex justify-content-center' key={i}>
-                            <PostCard width={450} postDetails={value} />
+                        <Col lg={6} key={i}>
+                            <PostCard  postDetails={value} />
                         </Col>
                         ))
                     }

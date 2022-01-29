@@ -1,7 +1,16 @@
 .postCard{
-    width:500px;
+    width:100%;
 }
-
+.postImg{
+    /* aspect-ratio: 1/1; */
+    object-fit: cover;
+}
+.postDescrption{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 19px;
+    margin: 0;
+}
 .header{
     display: flex;
     justify-content: flex-start;
@@ -17,6 +26,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 .share{

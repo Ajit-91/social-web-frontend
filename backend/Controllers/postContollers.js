@@ -63,6 +63,8 @@ const Comment = async (req, res) => {
         res.status(200).json("scuccess");
     } catch (err) {
         console.log(err);
+        res.status(200).json("process failed");
+
     }
 
 }
@@ -96,7 +98,7 @@ const LikePost = async (req, res) => {
 // ==========Function to get all  Posts of a particular user ============================
 const fetchUserPosts = async (req, res) =>{
     try{
-        const userPosts = await Post.find({creator : req.params.userid}).populate("creator", "name profileImg")
+        const userPosts = await Post.find({creator : req.params.userid}).populate("creator", "name profileImg").sort({"date" : "desc"})
         res.status(200).json(userPosts)
     }catch(err){
         console.log(err)
@@ -107,12 +109,22 @@ const fetchUserPosts = async (req, res) =>{
 
 // ==========Function to get single  Post of a particular user ============================
 
-
+const fetchSinglePost =async (req, res) =>{
+    try{
+        const singlePost = await Post.findById(req.params.postId)
+                                                        .populate({path : 'comments.commentBy', select : "name profileImg"})
+        
+        res.status(200).json(singlePost)
+    }catch(err){
+        console.log(err)
+        res.status(400).json("Process failed")
+    }
+}
 // ==========Function to get all  Post ============================
 
 const fetchAllPosts = async (req, res) =>{
     try{
-        const allPosts = await Post.find().populate("creator", "name profileImg")
+        const allPosts = await Post.find().populate("creator", "name profileImg").sort({"date" : "desc"})
         res.status(200).json(allPosts)
     }catch(err){
         console.log(err)
@@ -122,4 +134,4 @@ const fetchAllPosts = async (req, res) =>{
 }
 
 
-module.exports = { createPost, Comment, LikePost, fetchUserPosts, fetchAllPosts }
+module.exports = { createPost, Comment, LikePost, fetchUserPosts, fetchAllPosts, fetchSinglePost }
