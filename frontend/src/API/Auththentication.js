@@ -88,4 +88,26 @@ const updateProfileApi = async (update, userid)=>{
     }
 }
 
-export {register, login, fetchUser, updateProfileApi};
+const followOrUnfollowApi = async (followerId, followingToId) =>{
+    try{
+        const res  = await fetch(`/api/followOrUnfollow/follower/${followerId}/followingTo/${followingToId}`,{
+            method : "PUT"
+        })
+        const result = await res.json();
+        console.log("follow",result);
+        if (res.status===200) {
+            return result
+        } else {
+            console.log(result);
+            alert("process failed")
+            return result
+        }
+
+    }catch(err){
+        console.log(err)
+        alert("process failed")
+
+    }
+}
+
+export {register, login, fetchUser, updateProfileApi, followOrUnfollowApi};

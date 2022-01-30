@@ -66,7 +66,10 @@ const loginUser = async (req, res) => {
 
 const fetchUser = async (req, res) => {
     try {
-        const foundUser = await User.findById(req.params.userid).select("-password");
+        const foundUser = await User.findById(req.params.userid)
+                                                         .populate("followers", "name profileImg followers")
+                                                         .populate("following", "name profileImg followers")
+
         if (foundUser) {
             res.status(200).json(foundUser);
         } else {
@@ -79,23 +82,42 @@ const fetchUser = async (req, res) => {
 
 // ========Function to follow a user====================
 
-const followAUser = async (req, res)=>{
+const followOrUnfollow = async (req, res)=>{
     const follower = await User.findById(req.params.followerId)
     const followingTo = await User.findById(req.params.followingToId)
 
     try{
-        if(!follower || !followingTo) return res.status(401).json("process failed")
+        if(!follower || !followingTo) return res.status(401).json("process failed : didn't recieved follower or followingTo userId")
 
-        follower.follwing.push(req.params.followerId)
-        await follower.save()
-    
-        followingTo.follower.push(req.params.followerId)
-        await followingTo.save()
-    
-        res.status(200).json("Success")
+        const followerIndex = followingTo.followers.indexOf(req.params.followerId)
+        // followerIndex = -1 implies follower doesn't exits in following list of the user to whom tying to follow
+        if(followerIndex == -1){
+            // follow
+            follower.following.push(req.params.followingToId)
+            await follower.save()
+        
+            followingTo.followers.push(req.params.followerId)
+            await followingTo.save()
+            res.status(200).json("successfully followed")
+
+        }else{
+            // Unfollow
+            const followingToIndex = follower.following.indexOf(req.params.followingToId)
+
+            follower.following.splice(followingToIndex, 1)
+            await follower.save()
+
+            followingTo.followers.splice(followerIndex, 1)
+            await followingTo.save()
+
+            res.status(200).json("successfully unfollowed")
+
+        }
+
+
     }catch(err){
         console.log(err)
-        return res.status(401).json("process failed due to err")
+        return res.status(400).json("process failed")
     }
 
 }
@@ -133,4 +155,4 @@ const updateProfile = async (req, res)=>{
 
 }
 
-module.exports = { registerUser, loginUser, fetchUser, followAUser, updateProfile }
+module.exports = { registerUser, loginUser, fetchUser, followOrUnfollow, updateProfile }

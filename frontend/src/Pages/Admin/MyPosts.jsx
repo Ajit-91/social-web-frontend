@@ -15,32 +15,36 @@ const MyPosts = () => {
     const [posts, setPosts] = useState([])
     console.log("post status",createPostStatus)
 
+    const getAllUserPost = async ()=>{
+        const Posts = await fetchUserAllPosts(params.userId)
+        setPosts(Posts)
+        console.log("posts",posts)
+    }
     useEffect(()=>{
-        const getAllUserPost = async ()=>{
-            const Posts = await fetchUserAllPosts(params.userId)
-            setPosts(Posts)
-            console.log("posts",posts)
-        }
- 
         getAllUserPost()
     }, [params])
 
     return (
         <div className='main'>
             <CreatePost createPostStatus={createPostStatus} setCreatePostStatus={setCreatePostStatus} />
+       
             <Container className='mb-5  position-relative'>
-                <Fab 
-                    color='primary' 
-                    className="createPostBtn" 
-                    onClick={()=>setCreatePostStatus(true)}
-                >
-                    <MdAdd size={25} />
-                </Fab>
+            {
+                params?.userId === JSON.parse(localStorage.getItem("user")) && (
+                    <Fab 
+                        color='primary' 
+                        className="createPostBtn" 
+                        onClick={()=>setCreatePostStatus(true)}
+                    >
+                        <MdAdd size={25} />
+                    </Fab>
+                    )
+            }
                 <Row className='gy-4'>
                     {
                         posts?.map((value, i)=>(
                         <Col lg={6} key={i}>
-                            <PostCard  postDetails={value} />
+                            <PostCard  postDetails={value} reloadFun={getAllUserPost} />
                         </Col>
                         ))
                     }

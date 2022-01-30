@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import RightProfileCard from '../../Components/Profile/RightProfileCard';
 import "../../pageStyles/profile.css"
-// import { useRef } from 'react';
 import { Link } from "react-router-dom"
 import { useParams } from 'react-router';
 import { useSelector } from "react-redux"
@@ -17,20 +16,26 @@ const Profile = () => {
     const params = useParams()
     const [userDetails, setUserDetails] = useState({})
     const [updateProfile, setUpdateProfile] = useState(false)
+    const [reload, setReload] = useState(false)
+
+    console.log("reload",reload)
 
     useEffect(() => {
         const setDetails = async () => {
-            if (params.userid === JSON.parse(localStorage.getItem("user"))) {
-                setUserDetails(localUser)
-                setLoading(false)
-            } else {
-                const details = await fetchUser(params.userid)
-                setUserDetails(details)
-                setLoading(false)
-            }
+            // if (params.userid === JSON.parse(localStorage.getItem("user"))) {
+            //     setUserDetails(localUser)
+            //     setLoading(false)
+            // } else {
+            //     const details = await fetchUser(params.userid)
+            //     setUserDetails(details)
+            //     setLoading(false)
+            // }
+            const details = await fetchUser(params.userid)
+            setUserDetails(details)
+            setLoading(false)
         }
         setDetails()
-    }, [params.userid, localUser])
+    }, [params.userid, localUser, reload])
 
     return loading ? <h1>loading...</h1>
         : (
@@ -40,16 +45,16 @@ const Profile = () => {
                     <Row className="gy-4">
                         {/* Left col */}
                         <Col lg={4}>
-                            <LeftProfileCard userDetails={userDetails} />
+                            <LeftProfileCard userDetails={userDetails} setReload={setReload} />
                         </Col>
                         {/* Right col */}
                         <Col lg={8}>
                             <RightProfileCard userDetails={userDetails} setUpdateProfile={setUpdateProfile}/>
                         </Col>
                     </Row>
-                    <div style={{ textAlign: "center", display: "block" }}>
+                    {/* <div style={{ textAlign: "center", display: "block" }}>
                         <Link to={`/myPosts/${params.userid}`} >See all posts</Link>
-                    </div>
+                    </div> */}
                 </Container>
             </div>
         )

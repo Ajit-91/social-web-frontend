@@ -48,6 +48,13 @@
     align-items: center;
     flex-direction: column;
 }
+.atomicDetail small{
+    cursor: pointer;
+}
+.atomicDetail small:hover{
+    color: rgb(24, 116, 255);
+    text-decoration: underline;
+}
 .followBtn{
     width: 70%;
 }
@@ -68,4 +75,21 @@
     width: 100%;
     margin: 20px auto 0px auto;
     display: block;
+}
+
+.follwrContnr{
+    display: flex;
+    align-items: center;
+}
+
+.follwrInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+    margin-left: 10px;
+}
+
+.follwrInfo p{
+    margin-bottom: 1px;
 }

@@ -23,7 +23,7 @@ const Dashboard = () => {
                     { 
                         posts?.map((value, i)=>(
                         <>
-                            <PostCard  postDetails={value} key={i} getAllUserPost={getAllUserPost} />
+                            <PostCard  postDetails={value} key={i} reloadFun={getAllUserPost} />
                             <br/>
                         </>
                         ))

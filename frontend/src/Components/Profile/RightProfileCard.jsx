@@ -11,9 +11,13 @@ const RightProfileCard = ({userDetails, setUpdateProfile}) => {
               <Card.Header className='bg-white'>
                   <div className='d-flex justify-content-between align-items-center'>
                       PROFILE DETAILS
-                      <IconButton color='inherit' >
-                            <FiEdit size={25} style={{cursor : "pointer"}} onClick={()=>setUpdateProfile(true)}/>
-                      </IconButton>
+                      {
+                          userDetails?._id === JSON.parse(localStorage.getItem("user")) && (
+                            <IconButton color='inherit' >
+                                    <FiEdit size={25} style={{cursor : "pointer"}} onClick={()=>setUpdateProfile(true)}/>
+                            </IconButton>
+                          )
+                      }
                   </div>
               </Card.Header>
               <Card.Body >
