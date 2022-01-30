@@ -7,11 +7,11 @@ import { formatDate } from '../../Utilities/formatDate';
 import PostInfo from './PostInfo';
 import "./postCard.css"
 
-const PostCard = ({ width, postDetails }) => {
+const PostCard = ({ postDetails, getAllUserPost }) => {
     const navigate = useNavigate()
     return (
         <>
-            <Card className="shadow-lg postCard" style={{ width: `${width}px` }}>
+            <Card className="shadow-lg postCard" >
                 <Card.Header className="header bg-light">
                     <IconButton color='inherit' className='iconButton'>
                         <Avatar 
@@ -46,7 +46,7 @@ const PostCard = ({ width, postDetails }) => {
                 </Card.Body>
 
                 <Card.Footer className='bg-white '>
-                    <PostInfo postDetails={postDetails} />
+                    <PostInfo postDetails={postDetails} reloadFun={getAllUserPost} />
                 </Card.Footer>
 
             </Card>

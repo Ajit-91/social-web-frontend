@@ -27,7 +27,7 @@ const SinglePost = () => {
             <Card>
               <Card.Img src={post?.postImg} />
               <Card.Body>
-                  <PostInfo postDetails={post} getSinglePost={getSinglePost} />
+                  <PostInfo postDetails={post} reloadFun={getSinglePost} />
                     <hr />
                 {post?.description}
               </Card.Body>
