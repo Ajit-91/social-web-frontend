@@ -18,7 +18,7 @@ export default function NavBar() {
         <Container fluid="lg" className="navSubCont">
       {show && <NavList />}
           <Navbar.Brand className="brand">
-            <NavLink exact to="/">
+            <NavLink exact={`${true}`} to="/">
             <img
                 src="https://static.vecteezy.com/system/resources/previews/000/348/244/original/sharing-vector-icon.jpg"
                 alt="logo"
@@ -26,14 +26,12 @@ export default function NavBar() {
               />
             </NavLink>
           </Navbar.Brand>
-
-          {/* <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
-          {/* <Navbar.Collapse id="basic-navbar-nav"> */}
+          
             <Nav className="linkContainer">
-              <NavLink exact activeClassName="activeNavLinks" to="/">
+              <NavLink exact={`${true}`}  to="/">
                 HOME
               </NavLink>
-              <NavLink exact activeClassName="activeNavLinks" to={`/myPosts/${user?._id}`} >
+              <NavLink exact={`${true}`}  to={`/myPosts/${user?._id}`} >
                 MY POSTS
               </NavLink>
                 <section className="userInfo" onClick={()=>setShow((prev)=>!prev)}>

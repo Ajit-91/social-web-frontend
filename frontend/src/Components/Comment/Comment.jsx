@@ -47,10 +47,8 @@ const Comment = ({postDetails, getSinglePost}) => {
                         if(e.key === "Enter") postComment()
                     }}
                 />
-                <IconButton>
-                    <MdSend 
-                        onClick={postComment}
-                    />
+                <IconButton  onClick={postComment}>
+                    <MdSend />
                 </IconButton>
             </Card.Header>
             <Card.Body className='py-0'>
@@ -64,7 +62,7 @@ const Comment = ({postDetails, getSinglePost}) => {
                     :
                     postDetails?.comments?.map((val, i) =>(
                         <>
-                        <Row >
+                        <Row key={i} >
                         <hr style={{marginTop : 0}} />
                             <Col xs={2} style={{paddingRight : 0}} >
                             <Avatar 

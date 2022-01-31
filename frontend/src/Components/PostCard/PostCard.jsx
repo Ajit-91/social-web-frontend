@@ -13,10 +13,9 @@ const PostCard = ({ postDetails, reloadFun }) => {
         <>
             <Card className="shadow-lg postCard" >
                 <Card.Header className="header bg-light">
-                    <IconButton color='inherit' className='iconButton'>
+                    <IconButton color='inherit' className='iconButton' onClick={() => navigate(`/profile/${postDetails?.creator?._id}`)} >
                         <Avatar 
                             src={postDetails?.creator?.profileImg}  
-                            onClick={() => navigate(`/profile/${postDetails?.creator?._id}`)} 
                         />
                     </IconButton>
                     <div className='headerInfo'>

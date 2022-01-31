@@ -67,23 +67,27 @@ const UpdateProfileForm = ({updateProfile ,setUpdateProfile, localUser}) => {
                             <FileUpload ref={inputRef} setPreviewImage={setPreviewImage} setImgDetails={setImgDetails} />
                             <div className='profilePic'>
                                 <div className='picOptions'>
-                                    <IconButton color='inherit'>
+                                    <IconButton 
+                                        color='inherit' 
+                                        onClick={() => inputRef.current.click()}
+                                    >
                                         <MdEdit 
                                             size={25} 
                                             style={{cursor : "pointer"}}
                                             color='white'
-                                            onClick={() => inputRef.current.click()}
                                         />
                                     </IconButton>
-                                    <IconButton color='inherit'>
+                                    
+                                    <IconButton color='inherit'
+                                            onClick={() => {
+                                            setImgDetails("")
+                                            setPreviewImage("")
+                                        }}
+                                    >
                                         <MdDelete 
                                             size={25} 
                                             style={{cursor : "pointer"}}
                                             color='white'
-                                            onClick={() => {
-                                                setImgDetails("")
-                                                setPreviewImage("")
-                                            }}
                                         />
                                     </IconButton>
                                 </div>

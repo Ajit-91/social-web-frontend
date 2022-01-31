@@ -13,8 +13,8 @@ const RightProfileCard = ({userDetails, setUpdateProfile}) => {
                       PROFILE DETAILS
                       {
                           userDetails?._id === JSON.parse(localStorage.getItem("user")) && (
-                            <IconButton color='inherit' >
-                                    <FiEdit size={25} style={{cursor : "pointer"}} onClick={()=>setUpdateProfile(true)}/>
+                            <IconButton color='inherit' onClick={()=>setUpdateProfile(true)}>
+                                    <FiEdit size={25} style={{cursor : "pointer"}} />
                             </IconButton>
                           )
                       }

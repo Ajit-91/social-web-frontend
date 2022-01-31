@@ -23,7 +23,7 @@ const LeftProfileCard = ({userDetails, setReload}) => {
         }))
     console.log("isFollowing useEff",isFollowing)
 
-    }, [userDetails])
+    }, [userDetails, isFollowing])
 
     const followHandler = async ()=>{
         const followerId = JSON.parse(localStorage.getItem("user"))

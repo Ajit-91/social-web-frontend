@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import RightProfileCard from '../../Components/Profile/RightProfileCard';
-import "../../pageStyles/profile.css"
-import { Link } from "react-router-dom"
 import { useParams } from 'react-router';
 import { useSelector } from "react-redux"
 import { selectUser } from '../../Redux/Slices/userSlice';
 import { fetchUser } from '../../API/Auththentication';
 import LeftProfileCard from '../../Components/Profile/LeftProfileCard';
 import UpdateProfileForm from '../../Components/Profile/UpdateProfileForm';
+import "../../pageStyles/profile.css"
 
 const Profile = () => {
     const [loading, setLoading] = useState(true)
@@ -22,14 +21,6 @@ const Profile = () => {
 
     useEffect(() => {
         const setDetails = async () => {
-            // if (params.userid === JSON.parse(localStorage.getItem("user"))) {
-            //     setUserDetails(localUser)
-            //     setLoading(false)
-            // } else {
-            //     const details = await fetchUser(params.userid)
-            //     setUserDetails(details)
-            //     setLoading(false)
-            // }
             const details = await fetchUser(params.userid)
             setUserDetails(details)
             setLoading(false)
@@ -52,9 +43,6 @@ const Profile = () => {
                             <RightProfileCard userDetails={userDetails} setUpdateProfile={setUpdateProfile}/>
                         </Col>
                     </Row>
-                    {/* <div style={{ textAlign: "center", display: "block" }}>
-                        <Link to={`/myPosts/${params.userid}`} >See all posts</Link>
-                    </div> */}
                 </Container>
             </div>
         )

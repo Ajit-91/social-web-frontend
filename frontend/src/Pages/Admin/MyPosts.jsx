@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import PostCard from '../../Components/PostCard/PostCard';
 import CreatePost from '../../Components/CreatePost/CreatePost';
@@ -15,14 +15,14 @@ const MyPosts = () => {
     const [posts, setPosts] = useState([])
     console.log("post status",createPostStatus)
 
-    const getAllUserPost = async ()=>{
+    const getAllUserPost = useCallback(async ()=>{
         const Posts = await fetchUserAllPosts(params.userId)
         setPosts(Posts)
-        console.log("posts",posts)
-    }
+    }, [params.userId])
+
     useEffect(()=>{
         getAllUserPost()
-    }, [params])
+    }, [getAllUserPost])
 
     return (
         <div className='main'>
