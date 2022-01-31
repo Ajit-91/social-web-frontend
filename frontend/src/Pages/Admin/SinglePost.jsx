@@ -46,9 +46,9 @@ const SinglePost = () => {
                 </Card.Header>
               <Card.Img src={post?.postImg} className='postImg' />
               <Card.Body>
-                  <PostInfo postDetails={post} reloadFun={getSinglePost} />
-                    <hr />
                 {post?.description}
+                    <hr />
+                  <PostInfo postDetails={post} reloadFun={getSinglePost} />
               </Card.Body>
             </Card>
         </Col>

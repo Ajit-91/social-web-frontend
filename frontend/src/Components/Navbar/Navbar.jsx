@@ -16,7 +16,7 @@ export default function NavBar() {
     <div id="nav">
       <Navbar  >
         <Container fluid="lg" className="navSubCont">
-      {show && <NavList />}
+      {show && <NavList setShow={setShow} />}
           <Navbar.Brand className="brand">
             <NavLink exact={`${true}`} to="/">
             <img

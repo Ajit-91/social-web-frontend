@@ -12,46 +12,53 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
 import "./navList.css"
 
-export default function NavList() {
+export default function NavList({setShow}) {
   
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const user = useSelector(selectUser);
 
+  const handleClickAway = ()=>{
+    setShow(false)
+  }
+
   return (
-    <div className='navList shadow-lg'>
-      <List >
-        <ListItem disablePadding>
-          <ListItemButton style={{pointerEvents : "none"}}>
-            <div >
-              <h5 className='user'>{user?.name}</h5>
-              <small>{user?.email}</small>
-            </div>
-          </ListItemButton>
-        </ListItem>
+    <ClickAwayListener onClickAway={handleClickAway}>
+        <div className='navList shadow-lg'>
+          <List >
+            <ListItem disablePadding>
+              <ListItemButton style={{pointerEvents : "none"}}>
+                <div >
+                  <h5 className='user'>{user?.name}</h5>
+                  <small>{user?.email}</small>
+                </div>
+              </ListItemButton>
+            </ListItem>
 
-        <Divider />
+            <Divider />
 
-        <ListItem disablePadding>
-          <ListItemButton onClick={()=>navigate(`/profile/${JSON.parse(localStorage.getItem("user"))}`)}>
-              <ListItemIcon>
-                <BsFillPersonFill />
-              </ListItemIcon>
-              <ListItemText primary="Profile" />
-          </ListItemButton>
-        </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton onClick={()=>navigate(`/profile/${JSON.parse(localStorage.getItem("user"))}`)}>
+                  <ListItemIcon>
+                    <BsFillPersonFill />
+                  </ListItemIcon>
+                  <ListItemText primary="Profile" />
+              </ListItemButton>
+            </ListItem>
 
-        <ListItem disablePadding>
-          <ListItemButton onClick={()=>dispatch(LOGOUT())}>
-            <ListItemIcon>
-              <FiLogOut />
-            </ListItemIcon>
-            <ListItemText primary="Logout" />
-          </ListItemButton>
-        </ListItem>
-      </List>
-    </div>
+            <ListItem disablePadding>
+              <ListItemButton onClick={()=>dispatch(LOGOUT())}>
+                <ListItemIcon>
+                  <FiLogOut />
+                </ListItemIcon>
+                <ListItemText primary="Logout" />
+              </ListItemButton>
+            </ListItem>
+          </List>
+        </div>
+    </ClickAwayListener>
   );
 }

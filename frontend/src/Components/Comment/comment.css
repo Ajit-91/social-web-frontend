@@ -1,6 +1,7 @@
 .commentsCol{
     height: 500px;
     overflow-y: auto;
+    padding-right: 0 !important;
 }
 .allComments:last-child hr{
     margin-bottom: -1px;
