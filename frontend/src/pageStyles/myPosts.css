@@ -3,6 +3,7 @@
     z-index: 5;
     margin: inherit;
     padding: inherit;
-    bottom: 3rem;
-    right: 6rem;
+    bottom: 0;
+    right: 0;
+    transform: translate(-50%, -50%);
 }
