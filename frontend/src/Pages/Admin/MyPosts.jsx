@@ -6,6 +6,7 @@ import Fab from '@mui/material/Fab';
 import {MdAdd} from 'react-icons/md';
 import { fetchUserAllPosts } from '../../API/Posts';
 import { useParams } from 'react-router';
+import Loading from '../../Components/Loading';
 import "../../pageStyles/myPosts.css"
 
 const MyPosts = () => {
@@ -13,18 +14,19 @@ const MyPosts = () => {
     console.log(params)
     const [createPostStatus, setCreatePostStatus] = useState(false)
     const [posts, setPosts] = useState([])
-    console.log("post status",createPostStatus)
+    const [loading, setLoading] = useState(true)
 
     const getAllUserPost = useCallback(async ()=>{
         const Posts = await fetchUserAllPosts(params.userId)
         setPosts(Posts)
+        setLoading(false)
     }, [params.userId])
 
     useEffect(()=>{
         getAllUserPost()
-    }, [getAllUserPost])
+    }, [getAllUserPost, createPostStatus])
 
-    return (
+    return loading ? <Loading /> : (
         <div className='main'>
             <CreatePost createPostStatus={createPostStatus} setCreatePostStatus={setCreatePostStatus} />
        

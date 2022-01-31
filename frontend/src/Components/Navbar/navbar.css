@@ -1,5 +1,5 @@
 #nav{
-    position: sticky;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -8,7 +8,6 @@
     margin-bottom: 50px;
     border-bottom: 1px solid white;
     backdrop-filter: blur(9px);
-
 }
 
 .navSubCont{

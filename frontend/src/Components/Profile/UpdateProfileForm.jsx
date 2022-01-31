@@ -4,10 +4,11 @@ import FileUpload from '../FileUpload/FileUpload';
 import Avatar from '@mui/material/Avatar';
 import {updateProfileApi} from "../../API/Auththentication"
 import { SET_USER } from "../../Redux/Slices/userSlice"
-import "../../pageStyles/profile.css"
 import { useDispatch } from 'react-redux';
 import {MdEdit, MdDelete} from "react-icons/md"
 import { IconButton } from '@mui/material';
+import Alerts from '../Alerts';
+import "../../pageStyles/profile.css"
 
 const UpdateProfileForm = ({updateProfile ,setUpdateProfile, localUser}) => {
     const dispatch = useDispatch()
@@ -15,6 +16,9 @@ const UpdateProfileForm = ({updateProfile ,setUpdateProfile, localUser}) => {
     const [previewImage, setPreviewImage] = useState(localUser?.profileImg)
     const [imgDetails, setImgDetails] = useState(null)
     const [currentDetails, setCurrentDetails] = useState(localUser)
+    const [showAlert, setShowAlert] = useState(false)
+    const [msg, setMsg] = useState("")
+    const [alertType, setAlertType] = useState("")
     
     const handleChange = (e)=>{
         const {name, value} = e.target
@@ -35,6 +39,14 @@ const UpdateProfileForm = ({updateProfile ,setUpdateProfile, localUser}) => {
 
     const handleSubmit = async (e)=>{
         e.preventDefault()
+
+        if(!currentDetails?.name || !currentDetails?.course || !currentDetails?.college){
+            setMsg("One or more fields are required")
+            setAlertType("warning")
+            setShowAlert(true)
+            return
+        }
+
         console.log("submit call")
         const formData = new FormData()
         formData.append("name", currentDetails?.name)
@@ -43,14 +55,23 @@ const UpdateProfileForm = ({updateProfile ,setUpdateProfile, localUser}) => {
         formData.append("college", currentDetails?.college)
         if(imgDetails !== null) formData.append("profileImg", imgDetails)
 
-        const newDetails = await updateProfileApi(formData, localUser._id)
-        if(newDetails) dispatch(SET_USER(newDetails))
-        setUpdateProfile(false)
+        const response = await updateProfileApi(formData, localUser._id)
+        if(response.msg==="success"){
+            dispatch(SET_USER(response?.resp))
+            setUpdateProfile(false)
+            setMsg("Saved Changes")
+            setAlertType("success")
+            setShowAlert(true)
+        }else{
+            setMsg("Something went wrong")
+            setAlertType("error")
+            setShowAlert(true)
+        }
     }
 
-    console.log("img",imgDetails)
     return (
         <div>
+         <Alerts open={showAlert}  setOpen={setShowAlert} type={alertType} msg={msg} />
             <Modal
                 size='lg'
                 centered
@@ -109,7 +130,7 @@ const UpdateProfileForm = ({updateProfile ,setUpdateProfile, localUser}) => {
                             <Row>
                             <Col lg={12}>
                                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                                        <Form.Label>Name</Form.Label>
+                                        <Form.Label>Name<span style={{color : "red"}}> *</span></Form.Label>
                                         <Form.Control type="text" name="name" value={currentDetails?.name} onChange={handleChange} />
                                     </Form.Group>
                                 </Col>
@@ -123,14 +144,14 @@ const UpdateProfileForm = ({updateProfile ,setUpdateProfile, localUser}) => {
 
                                 <Col lg={12}>
                                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                                        <Form.Label>Course</Form.Label>
+                                        <Form.Label>Course<span style={{color : "red"}}> *</span></Form.Label>
                                         <Form.Control type="text" name="course" value={currentDetails?.course} onChange={handleChange} />
                                     </Form.Group>
                                 </Col>
 
                                 <Col lg={12}>
                                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                                        <Form.Label>College</Form.Label>
+                                        <Form.Label>College<span style={{color : "red"}}> *</span></Form.Label>
                                         <Form.Control type="text" name="college" value={currentDetails?.college} onChange={handleChange} />
                                     </Form.Group>
                                 </Col>

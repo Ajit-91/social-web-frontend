@@ -3,7 +3,8 @@
 }
 .postImg{
     /* aspect-ratio: 1/1; */
-    object-fit: cover;
+    object-fit: contain;
+    max-height: 500px;
 }
 .postDescrption{
     text-overflow: ellipsis;

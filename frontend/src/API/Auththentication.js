@@ -74,17 +74,13 @@ const updateProfileApi = async (update, userid)=>{
         const result = await res.json();
         console.log("updateRes",result);
         if (res.status===200) {
-            alert("Saved")
             return result
         } else {
             console.log(result);
-            alert("process failed")
         }
 
     }catch(err){
         console.log(err)
-        alert("process failed")
-
     }
 }
 

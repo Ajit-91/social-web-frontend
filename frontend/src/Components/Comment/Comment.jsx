@@ -9,31 +9,45 @@ import {MdSend} from "react-icons/md"
 import { IconButton } from '@mui/material';
 import "./comment.css"
 import { useNavigate } from 'react-router';
+import Alerts from '../Alerts';
 
 const Comment = ({postDetails, getSinglePost}) => {
     const user = useSelector(selectUser)
-    const loadingState = useSelector((state)=>state.loading.isLoading)
     const [commentBody, setCommentBody] = useState("")
+    const [showAlert, setShowAlert] = useState(false)
+    const [msg, setMsg] = useState("")
+    const [alertType, setAlertType] = useState("")
     const navigate = useNavigate()
 
     const postComment = async ()=>{
-        console.log(commentBody)
+        if(!commentBody){
+            setMsg("Comment is required")
+            setAlertType("warning")
+            setShowAlert(true)
+            return
+        }
+
         let body = {
             comment : commentBody
         }
         const resp = await comment(body, postDetails._id, user._id)
         if (resp === "scuccess"){
-            console.log("prevState",loadingState)
             setCommentBody("")
             getSinglePost()
+            setMsg("Comment Added")
+            setAlertType("success")
+            setShowAlert(true)
         }
         else{
-            alert("process failed")
+            setMsg("Something went wrong")
+            setAlertType("warning")
+            setShowAlert(true)
         }
     }
 
   return (
     <>
+         <Alerts open={showAlert}  setOpen={setShowAlert} type={alertType} msg={msg} />
         <Card className='' >
             <Card.Header className='bg-white commentArea shadow'>
                 <Avatar src={user?.profileImg} />
@@ -42,7 +56,7 @@ const Comment = ({postDetails, getSinglePost}) => {
                     value={commentBody}
                     onChange={(e)=>setCommentBody(e.target.value)}
                     className='commentInput' 
-                    placeholder='Write a Public Comment'
+                    placeholder='Add a Comment'
                     onKeyDown={(e)=>{
                         if(e.key === "Enter") postComment()
                     }}
@@ -51,7 +65,7 @@ const Comment = ({postDetails, getSinglePost}) => {
                     <MdSend />
                 </IconButton>
             </Card.Header>
-            <Card.Body className='py-0'>
+            <Card.Body className='py-0 ' style={{minHeight : "430px"}}>
                 {
                     postDetails?.comments?.length === 0 ?
                     <>
@@ -61,9 +75,8 @@ const Comment = ({postDetails, getSinglePost}) => {
                     </>
                     :
                     postDetails?.comments?.map((val, i) =>(
-                        <>
-                        <Row key={i} >
-                        <hr style={{marginTop : 0}} />
+                        <div key={i} className='allComments'>
+                        <Row  >
                             <Col xs={2} style={{paddingRight : 0}} >
                             <Avatar 
                                 src={val?.commentBy?.profileImg} 
@@ -86,8 +99,9 @@ const Comment = ({postDetails, getSinglePost}) => {
                             </div>
                             </Col>
                         </Row>
+                        <hr style={{marginTop : 0}}  />
                          
-                        </>
+                        </div>
                     ))
                 }
             </Card.Body>

@@ -6,6 +6,7 @@ import FileUpload from '../FileUpload/FileUpload';
 import {BsCloudUpload} from "react-icons/bs"
 import {IoMdSend} from "react-icons/io"
 import { createPost } from '../../API/Posts';
+import Alerts from '../Alerts';
 import "./createPost.css"
 
 const CreatePost = ({createPostStatus, setCreatePostStatus}) => {
@@ -14,9 +15,19 @@ const CreatePost = ({createPostStatus, setCreatePostStatus}) => {
     const [previewImage, setPreviewImage] = useState("")
     const [imgDetails, setImgDetails] = useState(null)
     const [postDetails, setPostDetails] = useState()
+    const [showAlert, setShowAlert] = useState(false)
+    const [msg, setMsg] = useState("")
+    const [alertType, setAlertType] = useState("")
+
     const handleSubmit = async (e)=>{
         e.preventDefault()
-        
+        if(!postDetails){
+            setMsg("One or more fields are required")
+            setAlertType("warning")
+            setShowAlert(true)
+            return
+        }
+
         const formData = new FormData()
         formData.append("description", postDetails)
         if(imgDetails) formData.append("postImg", imgDetails)
@@ -26,12 +37,16 @@ const CreatePost = ({createPostStatus, setCreatePostStatus}) => {
             console.log(response)
             dispatch(SET_USER(response.resp))
             handleHide()
+            setMsg("Added a post")
+            setAlertType("success")
+            setShowAlert(true)
+        }else{
+            setMsg("Something Went wrong")
+            setAlertType("error")
+            setShowAlert(true)
         }
     }
-    // const handleChange = (e)=>{
-    //     const { name, value } = e.target
 
-    // }
     const handleHide = ()=>{
         setPreviewImage("")
         setPostDetails("")
@@ -39,6 +54,7 @@ const CreatePost = ({createPostStatus, setCreatePostStatus}) => {
     }
     return (
         <>
+         <Alerts open={showAlert}  setOpen={setShowAlert} type={alertType} msg={msg} />
             <Modal
                 size='lg'
                 centered
@@ -72,7 +88,6 @@ const CreatePost = ({createPostStatus, setCreatePostStatus}) => {
                                             className='aboutSection' 
                                             name='post' 
                                             value={postDetails} 
-                                            required
                                             onChange={(e)=>setPostDetails(e.target.value)} />
                                     </Form.Group>
                                 </Row>

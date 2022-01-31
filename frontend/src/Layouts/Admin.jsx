@@ -9,6 +9,7 @@ const Admin = () => {
     return (
         <>
             <NavBar />
+            <div style={{paddingTop : "120px"}}>
             <Routes>
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/myPosts/:userId" element={<MyPosts />} />
@@ -16,6 +17,7 @@ const Admin = () => {
                     <Route path="/profile/:userid" element={<Profile />} />
                     <Route path="*" element={<Navigate to="/dashboard" />} />
             </Routes>
+            </div>
         </>
     )
 }

@@ -7,6 +7,7 @@ import { selectUser } from '../../Redux/Slices/userSlice';
 import { fetchUser } from '../../API/Auththentication';
 import LeftProfileCard from '../../Components/Profile/LeftProfileCard';
 import UpdateProfileForm from '../../Components/Profile/UpdateProfileForm';
+import Loading from '../../Components/Loading';
 import "../../pageStyles/profile.css"
 
 const Profile = () => {
@@ -28,8 +29,7 @@ const Profile = () => {
         setDetails()
     }, [params.userid, localUser, reload])
 
-    return loading ? <h1>loading...</h1>
-        : (
+    return loading ? <Loading />  : (
             <div >
               <UpdateProfileForm updateProfile={updateProfile} setUpdateProfile={setUpdateProfile} localUser={localUser} />
                 <Container className='mb-5'>

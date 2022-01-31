@@ -9,6 +9,7 @@ import { SET_USER } from './Redux/Slices/userSlice';
 import { useDispatch } from 'react-redux';
 import { fetchUser } from "./API/Auththentication"
 import { useState } from 'react';
+import Loading from './Components/Loading';
 import "./pageStyles/app.css"
 const App = () => {
   // state => state.user.user
@@ -41,9 +42,7 @@ const App = () => {
     storeUser();
   }, [dispatch])
 
-  return loading ? <h1>Loading ....</h1>
-   :
-  (
+  return loading ? <Loading />  :  (
     <>
       {user ? <Admin /> : <Auth />}
     </>

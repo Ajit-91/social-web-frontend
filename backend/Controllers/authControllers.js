@@ -143,14 +143,14 @@ const updateProfile = async (req, res)=>{
     
         const user = await User.findByIdAndUpdate(req.params.userid, update, {new : true}).select("-password")
         if (user) {
-            res.status(200).json(user);
+            res.status(200).json({msg : "success", resp : user});
         } else {
-            res.status(404).json("User doesn't exist")
+            res.status(404).json({msg : "User doesn't exist"})
         }
 
     }catch(err){
         console.log(err)
-        res.status(400).json("process failed")
+        res.status(400).json({msg : "process failed"})
     }
 
 }

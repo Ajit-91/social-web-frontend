@@ -31,6 +31,7 @@ const createPost = async (req, res) => {
             ...postDetails
         })
         await post.save();
+        
         creator.postCount += 1;
         const newDetails = await creator.save()
 
@@ -112,6 +113,7 @@ const fetchUserPosts = async (req, res) =>{
 const fetchSinglePost =async (req, res) =>{
     try{
         const singlePost = await Post.findById(req.params.postId)
+                                                        .populate("creator", "name profileImg")
                                                         .populate({path : 'comments.commentBy', select : "name profileImg"})
         
         res.status(200).json(singlePost)
