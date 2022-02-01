@@ -4,7 +4,7 @@
     padding-right: 0 !important;
 }
 .allComments:last-child hr{
-    margin-bottom: -1px;
+    margin-bottom: 0px;
 }
 .commentArea{
     display: flex;

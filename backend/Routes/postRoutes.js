@@ -12,7 +12,7 @@ router.put("/api/post/:postid/like/:likerid", LikePost)
 // ======= fetch user Posts ===============
 router.get("/api/fetchUserPosts/:userid", fetchUserPosts)
 // ======= fetch all Posts ===============
-router.get("/api/fetchAllPosts", fetchAllPosts)
+router.post("/api/fetchAllPosts", fetchAllPosts)
 // ======= fetch single Post ===============
 router.get("/api/fetchSinglePost/:postId", fetchSinglePost)
 

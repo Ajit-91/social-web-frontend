@@ -1,0 +1,29 @@
+.formContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+.formCard{
+    width: 50%;
+    border-radius: 20px;
+}
+#registerForm{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+}
+
+@media screen and (max-width : 767px) {
+    .formCard{
+        width: 80%;
+    }
+}
+@media screen and (max-width : 467px) {
+    .formCard{
+        width: 100%;
+    }
+}

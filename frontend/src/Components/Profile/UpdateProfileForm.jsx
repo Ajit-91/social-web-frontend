@@ -7,6 +7,7 @@ import { SET_USER } from "../../Redux/Slices/userSlice"
 import { useDispatch } from 'react-redux';
 import {MdEdit, MdDelete} from "react-icons/md"
 import { IconButton } from '@mui/material';
+import {RiSave3Line} from "react-icons/ri"
 import Alerts from '../Alerts';
 import "../../pageStyles/profile.css"
 
@@ -156,7 +157,7 @@ const UpdateProfileForm = ({updateProfile ,setUpdateProfile, localUser}) => {
                                     </Form.Group>
                                 </Col>
                             </Row>
-                            <Button type="submit" variant='success' className="saveBtn" >Save Changes</Button>
+                            <Button type="submit" variant='outline-primary' className="saveBtn d-flex align-items-center" > Save Changes &nbsp;<RiSave3Line /></Button>
                         </Form>
                     </Card.Body>
                 </Card>      

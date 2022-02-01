@@ -15,7 +15,8 @@ const register = async (user)=>{
             return data;
         }
         else{
-            alert(data);
+            console.log(data)
+            return data
         }
     }catch(err){
         console.log(err);
@@ -27,19 +28,17 @@ const register = async (user)=>{
 const login = async (user)=>{
     console.log(user);
     try{
-        console.log("user : "+user);
         const res = await fetch("/login", {
             method : "POST",
             headers : {"Content-Type" : "application/json"},
             body : JSON.stringify(user)
         })
         const data = await res.json();
-         console.log("data",data);
-        console.log("res",res);
         if(res.status === 201){
             return data;
         }else{
-            alert(data);
+            console.log(data)
+            return data;
         }
     }catch(err){
         console.log(err);

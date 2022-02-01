@@ -83,10 +83,12 @@ export const fetchUserAllPosts = async (userId)=>{
 }
 
 
-export const fetchAllPosts = async ()=>{
+export const fetchAllPosts = async (userId)=>{
     try{
         const res  = await fetch("/api/fetchAllPosts", {
-            method : "GET"
+            method : "POST",
+            headers : {"Content-Type" : "application/json"},
+            body : JSON.stringify({userId})
         })
         const result = await res.json();
         console.log("user posts",result);

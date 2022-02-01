@@ -126,7 +126,8 @@ const fetchSinglePost =async (req, res) =>{
 
 const fetchAllPosts = async (req, res) =>{
     try{
-        const allPosts = await Post.find().populate("creator", "name profileImg").sort({"date" : "desc"})
+        const userId = req.body.userId
+        const allPosts = await Post.find({"creator" : {$ne : userId}}).populate("creator", "name profileImg").sort({"date" : "desc"})
         res.status(200).json(allPosts)
     }catch(err){
         console.log(err)

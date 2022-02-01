@@ -8,13 +8,13 @@ const registerUser = async (req, res) => {
         const { name, email, password, course, college } = req.body;
         if (!email || !name || !password || !course || !college) {
             console.log("one or more fields required");
-            return res.status(400).json(" api one or more fields required")
+            return res.status(400).json("one or more fields required")
         }
 
         const foundUser = await User.findOne({ email });
 
         if (foundUser) {
-            return res.status(409).json("User Already exist")
+            return res.status(409).json({msg : "User Already exist"})
         } else {
             const hash = await bcrypt.hash(password, Number(process.env.SALT_ROUNDS));
             const user = new User({
@@ -26,7 +26,7 @@ const registerUser = async (req, res) => {
             });
 
             const savedUser = await user.save();
-            res.status(200).json(savedUser);
+            res.status(200).json({msg : "success", resp : savedUser});
 
         }
     } catch (err) {
@@ -42,19 +42,19 @@ const loginUser = async (req, res) => {
         const { email, password } = req.body;
 
         if (!email || !password) {
-            return res.status(400).json(" api one or more fields required")
+            return res.status(400).json({msg : "one or more fields required"})
         }
 
         const foundUser = await User.findOne({ email });
         if (foundUser) {
             const isMatching = await bcrypt.compare(password, foundUser.password);
             if (isMatching) {
-                res.status(201).json(foundUser);
+                res.status(201).json({msg : "success", resp : foundUser});
             } else {
-                return res.status(400).json("Either email or password is wrong");
+                return res.status(400).json({msg : "Either email or password is wrong"});
             }
         } else {
-            return res.status(400).json("Either email or password is wrong");
+            return res.status(400).json({msg : "Either email or password is wrong"});
         }
 
     } catch (error) {
@@ -69,6 +69,7 @@ const fetchUser = async (req, res) => {
         const foundUser = await User.findById(req.params.userid)
                                                          .populate("followers", "name profileImg followers")
                                                          .populate("following", "name profileImg followers")
+                                                         .select("-password")
 
         if (foundUser) {
             res.status(200).json(foundUser);

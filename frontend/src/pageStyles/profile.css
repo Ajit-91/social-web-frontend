@@ -72,7 +72,6 @@
 }
 
 .saveBtn{
-    width: 100%;
     margin: 20px auto 0px auto;
     display: block;
 }
@@ -80,6 +79,10 @@
 .follwrContnr{
     display: flex;
     align-items: center;
+}
+
+.follwrsRow:last-child hr{
+    margin-bottom: 0;
 }
 
 .follwrInfo{

@@ -42,6 +42,15 @@ const MyPosts = () => {
                     </Fab>
                     )
             }
+            {
+                posts?.length === 0 ?
+                <>
+                    <div className='noPosts'>
+                        <h2>You don't have any posts yet</h2>
+                        <h3>Start creating</h3>
+                    </div>
+                </>
+                : (
                 <Row className='gy-4'>
                     {
                         posts?.map((value, i)=>(
@@ -52,6 +61,8 @@ const MyPosts = () => {
                     }
                
                 </Row>
+                )
+            }
             </Container>
         </div>
     )

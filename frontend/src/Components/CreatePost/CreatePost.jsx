@@ -93,8 +93,8 @@ const CreatePost = ({createPostStatus, setCreatePostStatus}) => {
                                 </Row>
                                 <Button 
                                     type="submit" 
-                                    variant='success' 
-                                    className='d-flex align-items-center' 
+                                    variant='outline-primary' 
+                                    className='d-flex align-items-center postbtn' 
                                     >   Post &nbsp;<IoMdSend size={20} /> 
                                     </Button>
 

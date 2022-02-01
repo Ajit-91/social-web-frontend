@@ -4,13 +4,15 @@ import { fetchAllPosts } from '../../API/Posts';
 import { Container, Row, Col } from 'react-bootstrap';
 import Loading from "../../Components/Loading"
 import "../../pageStyles/dashboard.css"
+
 const Dashboard = () => {
     // const [previewImage, setPreviewImage] = useState('')
     const [posts, setPosts] = useState([])
     const [loading, setReloading] = useState(true)
 
     const getAllUserPost = useCallback(async ()=>{
-        const Posts = await fetchAllPosts()
+        const Posts = await fetchAllPosts(JSON.parse(localStorage.getItem("user")))
+        console.log("posts",Posts)
         setPosts(Posts)
         setReloading(false)
     }, [])
