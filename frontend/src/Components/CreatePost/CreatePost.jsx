@@ -19,6 +19,13 @@ const CreatePost = ({createPostStatus, setCreatePostStatus}) => {
     const [msg, setMsg] = useState("")
     const [alertType, setAlertType] = useState("")
 
+    const handleHide = ()=>{
+        setPreviewImage("")
+        setPostDetails("")
+        setImgDetails("")
+        setCreatePostStatus(false)
+    }
+
     const handleSubmit = async (e)=>{
         e.preventDefault()
         if(!postDetails){
@@ -47,11 +54,7 @@ const CreatePost = ({createPostStatus, setCreatePostStatus}) => {
         }
     }
 
-    const handleHide = ()=>{
-        setPreviewImage("")
-        setPostDetails("")
-        setCreatePostStatus(false)
-    }
+
     return (
         <>
          <Alerts open={showAlert}  setOpen={setShowAlert} type={alertType} msg={msg} />

@@ -11,7 +11,6 @@ const FollowersOrFollowingList = ({ showList, setShowList, list, listType }) => 
         setShowList(false)
     }
 
-    console.log("list", list)
     return (
         <div>
             <Modal

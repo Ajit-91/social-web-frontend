@@ -18,8 +18,6 @@ const Profile = () => {
     const [updateProfile, setUpdateProfile] = useState(false)
     const [reload, setReload] = useState(false)
 
-    console.log("reload",reload)
-
     useEffect(() => {
         const setDetails = async () => {
             const details = await fetchUser(params.userid)

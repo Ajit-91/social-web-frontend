@@ -72,8 +72,8 @@
 }
 
 .saveBtn{
-    margin: 20px auto 0px auto;
-    display: block;
+    margin-right: auto;
+    margin-top: 15px;
 }
 
 .follwrContnr{

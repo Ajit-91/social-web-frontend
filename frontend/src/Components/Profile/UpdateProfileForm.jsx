@@ -48,7 +48,6 @@ const UpdateProfileForm = ({updateProfile ,setUpdateProfile, localUser}) => {
             return
         }
 
-        console.log("submit call")
         const formData = new FormData()
         formData.append("name", currentDetails?.name)
         formData.append("bio", currentDetails?.bio)

@@ -17,5 +17,6 @@
     display: block;
 }
 .postbtn{
-    margin: 20px auto 0px auto;
+    margin-right: auto;
+    margin-top: 15px;
 }

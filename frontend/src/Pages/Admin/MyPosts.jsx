@@ -11,7 +11,6 @@ import "../../pageStyles/myPosts.css"
 
 const MyPosts = () => {
     const params = useParams()
-    console.log(params)
     const [createPostStatus, setCreatePostStatus] = useState(false)
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(true)

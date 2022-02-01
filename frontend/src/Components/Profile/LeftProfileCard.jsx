@@ -12,7 +12,6 @@ const LeftProfileCard = ({userDetails, setReload}) => {
     const [listType, setListType] = useState("")
     const navigate = useNavigate()
 
-    console.log("isFollowing",isFollowing)
 
     useEffect(()=>{
         // checking if logged In user exists in followers list of the user
@@ -21,7 +20,6 @@ const LeftProfileCard = ({userDetails, setReload}) => {
             else return false
             
         }))
-    console.log("isFollowing useEff",isFollowing)
 
     }, [userDetails, isFollowing])
 

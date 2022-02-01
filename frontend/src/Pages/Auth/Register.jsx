@@ -41,7 +41,6 @@ const Register = () => {
             return
         }
 
-        console.log(user);
         const data = await register(user);
         if (data?.msg==="success") {
             localStorage.setItem("user", JSON.stringify(data?.resp?._id));

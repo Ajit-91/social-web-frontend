@@ -71,7 +71,7 @@ const updateProfileApi = async (update, userid)=>{
             body : update
         })
         const result = await res.json();
-        console.log("updateRes",result);
+
         if (res.status===200) {
             return result
         } else {
@@ -89,7 +89,7 @@ const followOrUnfollowApi = async (followerId, followingToId) =>{
             method : "PUT"
         })
         const result = await res.json();
-        console.log("follow",result);
+        
         if (res.status===200) {
             return result
         } else {

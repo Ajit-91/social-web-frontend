@@ -16,9 +16,7 @@ const PostInfo = ({postDetails, reloadFun}) => {
     }, [postDetails])
 
     const likeHandler= async ()=> {
-        const resp = await likeAPost(postDetails?._id, JSON.parse(localStorage.getItem("user")));
-        console.log(resp);
-        console.log("fetchPost", reloadFun);
+        await likeAPost(postDetails?._id, JSON.parse(localStorage.getItem("user")));
         await reloadFun()
     }
 

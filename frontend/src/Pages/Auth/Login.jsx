@@ -36,9 +36,7 @@ const Login = () => {
             setShowAlert(true)
             return
         }
-        console.log(user);
         const data = await login(user);
-        console.log("login",data)
         if (data?.msg==="success") {
             localStorage.setItem("user", JSON.stringify(data?.resp?._id));
             dispatch(SET_USER(data?.resp))

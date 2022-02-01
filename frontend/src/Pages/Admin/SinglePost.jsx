@@ -17,11 +17,9 @@ const SinglePost = () => {
 
   const getSinglePost = useCallback(async () =>{
     const resp = await fetchSinglePost(params.postId)
-    console.log("singlePost",resp)
     setPost(resp)
     setLoading(false)
   }, [params.postId])
-  console.log("postS",post)
 
   useEffect(()=>{
     getSinglePost()

@@ -7,7 +7,6 @@ export const createPost = async (body, userId)=>{
         })
 
         const result = await res.json();
-        console.log("postRes",result);
         if (res.status===200) {
             return result
         } else {
@@ -28,7 +27,7 @@ export const comment = async (body, postId, commentorId)=>{
         })
 
         const result = await res.json();
-        console.log("comment",result);
+
         if (res.status===200) {
             return result
         } else {
@@ -44,12 +43,10 @@ export const likeAPost = async (postId, likerId)=>{
     try{
         const res  = await fetch(`/api/post/${postId}/like/${likerId}`,{
             method : "PUT",
-            // headers : {"Content-Type" : "application/json"},
-            // body : JSON.stringify(body)
         })
 
         const result = await res.json();
-        console.log("like",result);
+        
         if (res.status===200) {
             return result
         } else {
@@ -69,7 +66,7 @@ export const fetchUserAllPosts = async (userId)=>{
             method : "GET"
         })
         const result = await res.json();
-        console.log("user posts",result);
+
         if (res.status===200) {
             return result
         } else {
@@ -91,7 +88,7 @@ export const fetchAllPosts = async (userId)=>{
             body : JSON.stringify({userId})
         })
         const result = await res.json();
-        console.log("user posts",result);
+
         if (res.status===200) {
             return result
         } else {
@@ -110,7 +107,7 @@ export const fetchSinglePost = async (postId)=>{
             method : "GET"
         })
         const result = await res.json();
-        console.log("single post",result);
+
         if (res.status===200) {
             return result
         } else {
