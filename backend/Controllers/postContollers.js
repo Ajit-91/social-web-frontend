@@ -79,14 +79,14 @@ const LikePost = async (req, res) => {
         
         if(likerExists){
             post.likes.likeCount -= 1
-            post.likes.likedBy.pop(req.params.likerid)
+            const indexOfLiker = post.likes.likedBy.indexOf(req.params.likerid)
+            post.likes.likedBy.splice(indexOfLiker, 1)
 
         }else{
             post.likes.likeCount += 1
             post.likes.likedBy.push(req.params.likerid)
         }
 
-        //  type msg in resp
         await post.save()
         res.status(200).json("success");
     } catch (err) {

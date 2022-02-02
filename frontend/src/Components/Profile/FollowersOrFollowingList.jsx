@@ -45,30 +45,10 @@ const FollowersOrFollowingList = ({ showList, setShowList, list, listType }) => 
                                         </div>
                                     </Col>
                                 </Row>
-                                <hr style={{ marginTop: 0 }} />
+                                <hr />
                             </div>
-                            // <Col lg={12}  >
-                            //     <div 
-                            //         className='follwrContnr'
-                            //         style={{cursor : "pointer"}} 
-                            //         onClick={()=>{
-                            //             handleHide()
-                            //             navigate(`/profile/${value?._id}`)
-                            //         }} 
-                            //     >
-                            //         <Avatar 
-                            //             src={value?.profileImg}   
-                            //         />
-                            //         <div className='follwrInfo'>
-                            //             <p>{value?.name}</p>
-                            //             <small>{value?.followers?.length} Followers</small>
-                            //         </div>
-                            //     </div>
-                            //     <hr style={{marginTop : 0}} />
-                            // </Col>
                         ))
                     }
-                    {/* </Row> */}
                 </Modal.Body>
             </Modal>
         </div>

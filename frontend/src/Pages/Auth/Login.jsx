@@ -90,17 +90,6 @@ const Login = () => {
                     </Card.Body>
                 </Card>
             </Container>
-
-            {/* <Container>
-                <form id="registerForm" onSubmit={handleSubmit}>
-                    <input type="text" placeholder='Email' name="email" value={user.name} onChange={handleChange} />
-                    <input type="password" placeholder='Password' name="password" value={user.password} onChange={handleChange} />
-                    <br />
-                    <Button color='primary' type='submit' >Submit</Button>
-                    <br />
-                    <Link to="/register">create account</Link>
-                </form>
-            </Container> */}
         </>
     )
 }

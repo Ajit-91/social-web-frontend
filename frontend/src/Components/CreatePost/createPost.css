@@ -3,15 +3,16 @@
     margin: 0 auto;
     /* aspect-ratio: 1/1; */
     height: 350px;
-    border : 3px dashed #0275d8;
+    border : 2px dashed #0d6efd;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 .previewImg{
-    width: 50%;
+    width: 45%;
+    /* max-height: 350px; */
     aspect-ratio: 1/1;
     margin: 0 auto;
     display: block;

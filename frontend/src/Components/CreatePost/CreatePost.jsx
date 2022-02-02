@@ -15,6 +15,7 @@ const CreatePost = ({createPostStatus, setCreatePostStatus}) => {
     const [previewImage, setPreviewImage] = useState("")
     const [imgDetails, setImgDetails] = useState(null)
     const [postDetails, setPostDetails] = useState()
+    const [isDragging, setIsDragging] = useState(false)
     const [showAlert, setShowAlert] = useState(false)
     const [msg, setMsg] = useState("")
     const [alertType, setAlertType] = useState("")
@@ -23,8 +24,28 @@ const CreatePost = ({createPostStatus, setCreatePostStatus}) => {
         setPreviewImage("")
         setPostDetails("")
         setImgDetails("")
+        setIsDragging(false)
         setCreatePostStatus(false)
     }
+
+    const handleDrop = e =>{
+        e.stopPropagation()
+        e.preventDefault()
+        console.log(e)
+        console.log(e.dataTransfer.files[0])
+        const file = e.dataTransfer.files[0]
+        if(!file) return
+  
+        setImgDetails(file)
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file)
+        fileReader.onload = ()=>{
+            setPreviewImage(fileReader.result)
+        }
+        fileReader.onerror = (err)=>{
+          console.log(err)
+        }
+      }
 
     const handleSubmit = async (e)=>{
         e.preventDefault()
@@ -76,9 +97,36 @@ const CreatePost = ({createPostStatus, setCreatePostStatus}) => {
                                          <Card.Img  src={previewImage} />
                                     </div>
                                     ) : 
-                                    <div className='uploadImg' onClick={()=>fileUploadRef.current.click()}>
-                                        <BsCloudUpload size={60} />
-                                        <p>Upload Image</p>
+                                    <div className='uploadImg' 
+                                        onDragEnter={(e)=>{
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            setIsDragging(true)
+                                        }}
+                                        onDragLeave={(e)=>{
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            setIsDragging(false)
+                                        }}
+                                        onDragOver={(e)=>{
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            return false;
+                                        }}
+                                        onDrop={handleDrop} 
+                                        >
+                                            {
+                                                isDragging ? 
+                                                <h4 className='text-muted'>Release to Upload File</h4>
+                                                : (
+                                                    <>
+                                                        <BsCloudUpload size={90} color='#0d6efd' />
+                                                        <p>Drag & Drop to Upload Image</p>
+                                                        <p >OR</p>
+                                                        <Button  onClick={()=>fileUploadRef.current.click()}>Browse File</Button>
+                                                    </>
+                                                )
+                                            }
                                     </div>
                                 }
                                 <FileUpload ref={fileUploadRef} setPreviewImage={setPreviewImage} setImgDetails={setImgDetails} />

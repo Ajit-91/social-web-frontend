@@ -18,6 +18,23 @@ const FileUpload = ({setPreviewImage, setImgDetails}, ref) => {
         }
     }
 
+    // const handleDrop = e =>{
+    //   e.preventDefault()
+    //   console.log(e.dataTransfer)
+    //   const file = e.dataTransfer.files[0]
+    //   if(!file) return
+
+    //   setImgDetails(file)
+    //   const fileReader = new FileReader();
+    //   fileReader.readAsDataURL(file)
+    //   fileReader.onload = ()=>{
+    //       setPreviewImage(fileReader.result)
+    //   }
+    //   fileReader.onerror = (err)=>{
+    //     console.log(err)
+    //   }
+    // }
+
   return(
   <div>
       <input type="file" 
@@ -25,6 +42,7 @@ const FileUpload = ({setPreviewImage, setImgDetails}, ref) => {
       accept='image/*' 
       ref={ref}
       onChange={handleImageChange} 
+      // onDrop={handleDrop}
       />
   </div>
   )};
