@@ -85,9 +85,7 @@ const updateProfileApi = async (update, userid)=>{
 
 const followOrUnfollowApi = async (followerId, followingToId) =>{
     try{
-        const res  = await fetch(`${process.env.REACT_APP_BASE_URL}
-                                                /api/followOrUnfollow/follower/
-                                                ${followerId}/followingTo/${followingToId}`,{
+        const res  = await fetch(`${process.env.REACT_APP_BASE_URL}/api/followOrUnfollow/follower/${followerId}/followingTo/${followingToId}`,{
             method : "PUT"
         })
         const result = await res.json();
