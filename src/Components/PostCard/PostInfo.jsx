@@ -5,11 +5,13 @@ import { MdFavorite } from "react-icons/md"
 import { MdComment } from "react-icons/md"
 import { MdShare } from "react-icons/md"
 import { likeAPost } from '../../API/Posts';
+import ShareLink from './ShareLink';
 import "./postCard.css"
 
 const PostInfo = ({postDetails, reloadFun}) => {
 
     const [isliked, setIsLiked] = useState()
+    const [showShareLink, setShowShareLink] = useState(false)
 
     useEffect(()=>{
         setIsLiked(postDetails?.likes?.likedBy?.includes(JSON.parse(localStorage.getItem("user"))))
@@ -23,6 +25,7 @@ const PostInfo = ({postDetails, reloadFun}) => {
 
     return (
         <>
+            <ShareLink showShareLink={showShareLink} setShowShareLink={setShowShareLink} postDetails={postDetails} />
             <div className='postInfo'>
                 <div onClick={likeHandler} >
                     {isliked ?
@@ -42,7 +45,7 @@ const PostInfo = ({postDetails, reloadFun}) => {
                     <span>&nbsp;{postDetails?.comments?.length}</span>
                 </div>
                 <div className='share'>
-                    <IconButton color='inherit' className='iconButton'>
+                    <IconButton color='inherit' className='iconButton' onClick={()=>setShowShareLink(true)} >
                         <MdShare size="30px" />
                     </IconButton>
                 </div>

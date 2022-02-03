@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { Col, Container } from 'react-bootstrap';
+import { Row, Col, Container } from 'react-bootstrap';
 import PostCard from '../../Components/PostCard/PostCard';
 import CreatePost from '../../Components/CreatePost/CreatePost';
 import Fab from '@mui/material/Fab';
@@ -51,20 +51,20 @@ const MyPosts = () => {
                 </>
                 : (
                     <>
-                    {/* <Row className='gy-4'> */}
-                        <div className='eachCol'>
+                    <Row className='gy-4'>
+                        {/* <div className='eachCol'> */}
                             {
                                 posts?.map((value, i)=>(
-                                    <div className='keepTogether' key={i}>
-                                        <Col  style={{width : "100%"}} >
+                                    // <div className='keepTogether' key={i}>
+                                        <Col key={i}  style={{width : "100%"}} >
                                         <PostCard  postDetails={value} reloadFun={getAllUserPost} />
                                         </Col>
-                                    </div>
+                                    // {/* </div> */}
                                 ))
                             }
                     
-                        </div>
-                    {/* </Row> */}
+                        {/* </div> */}
+                    </Row>
                     </>
                 )
             }
