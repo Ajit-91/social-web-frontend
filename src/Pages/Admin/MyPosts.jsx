@@ -21,6 +21,7 @@ const MyPosts = () => {
         setLoading(false)
     }, [params.userId])
 
+    
     useEffect(()=>{
         getAllUserPost()
     }, [getAllUserPost, createPostStatus])
