@@ -56,7 +56,7 @@ const MyPosts = () => {
                             {
                                 posts?.map((value, i)=>(
                                     // <div className='keepTogether' key={i}>
-                                        <Col key={i}  style={{width : "100%"}} >
+                                        <Col key={i} lg={6}  >
                                         <PostCard  postDetails={value} reloadFun={getAllUserPost} />
                                         </Col>
                                     // {/* </div> */}
