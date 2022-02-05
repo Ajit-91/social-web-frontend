@@ -7,9 +7,10 @@ import { comment } from '../../API/Posts';
 import { formatDate } from '../../Utilities/formatDate';
 import {MdSend} from "react-icons/md"
 import { IconButton } from '@mui/material';
-import "./comment.css"
+import { Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
 import Alerts from '../Alerts';
+import "./comment.css"
 
 const Comment = ({postDetails, getSinglePost}) => {
     const user = useSelector(selectUser)
@@ -17,13 +18,16 @@ const Comment = ({postDetails, getSinglePost}) => {
     const [showAlert, setShowAlert] = useState(false)
     const [msg, setMsg] = useState("")
     const [alertType, setAlertType] = useState("")
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
     const postComment = async ()=>{
+        setLoading(true)
         if(!commentBody){
             setMsg("Comment is required")
             setAlertType("warning")
             setShowAlert(true)
+            setLoading(false)
             return
         }
 
@@ -37,11 +41,13 @@ const Comment = ({postDetails, getSinglePost}) => {
             setMsg("Comment Added")
             setAlertType("success")
             setShowAlert(true)
+            setLoading(false)
         }
         else{
             setMsg("Something went wrong")
             setAlertType("warning")
             setShowAlert(true)
+            setLoading(false)
         }
     }
 
@@ -62,7 +68,22 @@ const Comment = ({postDetails, getSinglePost}) => {
                     }}
                 />
                 <IconButton  onClick={postComment}>
-                    <MdSend />
+                    {
+                        loading ?
+                        <>
+                                <Spinner
+                                    as="span"
+                                    animation="border"
+                                    style={{borderWidth : '2px'}}
+                                    size="sm"
+                                    role="status"
+                                    aria-hidden="true"
+                                 />
+                        </>
+                        : (
+                            <MdSend />
+                        )
+                    }
                 </IconButton>
             </Card.Header>
             <Card.Body className='py-0 ' style={{minHeight : "430px"}}>
@@ -95,7 +116,7 @@ const Comment = ({postDetails, getSinglePost}) => {
                                     </small>
                                     <span><small className='text-muted'>{formatDate(val?.commentedAt)}</small></span>
                                 </div>
-                                <p>{val?.comment}</p>
+                                <p style={{marginBottom : '7px'}} >{val?.comment}</p>
                             </div>
                             </Col>
                         </Row>

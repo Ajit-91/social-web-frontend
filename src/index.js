@@ -8,7 +8,7 @@ import App from "./App"
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter basename={process.env.REACT_APP_FRONTEND_URL}>
+      <BrowserRouter basename='social-web-frontend'>
           <App />
       </BrowserRouter>
     </Provider>

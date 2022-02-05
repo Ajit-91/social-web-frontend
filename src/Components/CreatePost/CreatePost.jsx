@@ -7,6 +7,7 @@ import {BsCloudUpload} from "react-icons/bs"
 import {IoMdSend} from "react-icons/io"
 import { createPost } from '../../API/Posts';
 import Alerts from '../Alerts';
+import { Spinner } from 'react-bootstrap';
 import "./createPost.css"
 
 const CreatePost = ({createPostStatus, setCreatePostStatus}) => {
@@ -19,6 +20,7 @@ const CreatePost = ({createPostStatus, setCreatePostStatus}) => {
     const [showAlert, setShowAlert] = useState(false)
     const [msg, setMsg] = useState("")
     const [alertType, setAlertType] = useState("")
+    const [disabled, setDisabled] = useState(false)
 
     const handleHide = ()=>{
         setPreviewImage("")
@@ -49,10 +51,12 @@ const CreatePost = ({createPostStatus, setCreatePostStatus}) => {
 
     const handleSubmit = async (e)=>{
         e.preventDefault()
+        setDisabled(true)
         if(!postDetails){
             setMsg("One or more fields are required")
             setAlertType("warning")
             setShowAlert(true)
+            setDisabled(false)
             return
         }
 
@@ -64,14 +68,16 @@ const CreatePost = ({createPostStatus, setCreatePostStatus}) => {
         if(response?.msg === "success"){
             console.log(response)
             dispatch(SET_USER(response.resp))
-            handleHide()
             setMsg("Added a post")
             setAlertType("success")
             setShowAlert(true)
+            setDisabled(false)
+            handleHide()
         }else{
             setMsg("Something Went wrong")
             setAlertType("error")
             setShowAlert(true)
+            setDisabled(false)
         }
     }
 
@@ -146,7 +152,26 @@ const CreatePost = ({createPostStatus, setCreatePostStatus}) => {
                                     type="submit" 
                                     variant='outline-primary' 
                                     className='d-flex align-items-center postbtn' 
-                                    >   Post &nbsp;<IoMdSend size={20} /> 
+                                    disabled={disabled}
+                                >   
+                                    {
+                                        disabled ? 
+                                        <>
+                                            <Spinner
+                                            as="span"
+                                            animation="grow"
+                                            size="sm"
+                                            role="status"
+                                            aria-hidden="true"
+                                            />
+                                                &nbsp;Creating...
+                                        </>
+                                        : (
+                                            <>
+                                                Post &nbsp;<IoMdSend size={20} /> 
+                                            </>
+                                        )
+                                    }
                                     </Button>
 
                             </Form>

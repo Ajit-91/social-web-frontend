@@ -9,6 +9,7 @@ import {MdEdit, MdDelete} from "react-icons/md"
 import { IconButton } from '@mui/material';
 import {RiSave3Line} from "react-icons/ri"
 import Alerts from '../Alerts';
+import { Spinner } from 'react-bootstrap';
 import "../../pageStyles/profile.css"
 
 const UpdateProfileForm = ({updateProfile ,setUpdateProfile, localUser}) => {
@@ -20,6 +21,7 @@ const UpdateProfileForm = ({updateProfile ,setUpdateProfile, localUser}) => {
     const [showAlert, setShowAlert] = useState(false)
     const [msg, setMsg] = useState("")
     const [alertType, setAlertType] = useState("")
+    const [disabled, setDisabled] = useState(false)
     
     const handleChange = (e)=>{
         const {name, value} = e.target
@@ -40,11 +42,12 @@ const UpdateProfileForm = ({updateProfile ,setUpdateProfile, localUser}) => {
 
     const handleSubmit = async (e)=>{
         e.preventDefault()
-
+        setDisabled(true)
         if(!currentDetails?.name || !currentDetails?.course || !currentDetails?.college){
             setMsg("One or more fields are required")
             setAlertType("warning")
             setShowAlert(true)
+            setDisabled(false)
             return
         }
 
@@ -62,10 +65,12 @@ const UpdateProfileForm = ({updateProfile ,setUpdateProfile, localUser}) => {
             setMsg("Saved Changes")
             setAlertType("success")
             setShowAlert(true)
+            setDisabled(false)
         }else{
             setMsg("Something went wrong")
             setAlertType("error")
             setShowAlert(true)
+            setDisabled(false)
         }
     }
 
@@ -156,7 +161,26 @@ const UpdateProfileForm = ({updateProfile ,setUpdateProfile, localUser}) => {
                                     </Form.Group>
                                 </Col>
                             </Row>
-                            <Button type="submit" variant='outline-primary' className="saveBtn d-flex align-items-center" > Save Changes &nbsp;<RiSave3Line /></Button>
+                            <Button type="submit" variant='outline-primary' className="saveBtn d-flex align-items-center" disabled={disabled} >
+                                {
+                                    disabled ?
+                                        <>
+                                               <Spinner
+                                                    as="span"
+                                                    animation="grow"
+                                                    size="sm"
+                                                    role="status"
+                                                    aria-hidden="true"
+                                                />
+                                                &nbsp; Saving ...
+                                        </>
+                                        : (
+                                            <>
+                                            Save Changes &nbsp;<RiSave3Line />
+                                            </>
+                                        )
+                                }
+                            </Button>
                         </Form>
                     </Card.Body>
                 </Card>      

@@ -6,6 +6,7 @@ import { SET_USER } from '../../Redux/Slices/userSlice';
 import { login } from '../../API/Auththentication';
 import TextField from '@mui/material/TextField';
 import Alerts from "../../Components/Alerts"
+import { Spinner } from 'react-bootstrap';
 
 const Login = () => {
 
@@ -18,6 +19,7 @@ const Login = () => {
     const [showAlert, setShowAlert] = useState(false)
     const [msg, setMsg] = useState("")
     const [alertType, setAlertType] = useState("")
+    const [disabled, setDisabled] = useState(false)
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -30,24 +32,29 @@ const Login = () => {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setDisabled(true)
         if(!user?.email || !user?.password){
             setMsg("One or more fields are required")
             setAlertType("warning")
             setShowAlert(true)
+            setDisabled(false)
             return
         }
         const data = await login(user);
         if (data?.msg==="success") {
             localStorage.setItem("user", JSON.stringify(data?.resp?._id));
             dispatch(SET_USER(data?.resp))
+            setDisabled(false)
         }else if(data?.msg !=="success" && !data?.resp){
             setMsg(`${data?.msg}`)
             setAlertType("info")
             setShowAlert(true)
+            setDisabled(false)
         }else{
             setMsg("something went wrong")
             setAlertType("error")
             setShowAlert(true)
+            setDisabled(false)
         }
     }
     return (
@@ -64,7 +71,6 @@ const Login = () => {
                                 fullWidth
                                 margin="normal"
                                 variant="outlined"
-                                // required
                                 name='email'
                                 value={user.email}
                                 onChange={handleChange} />
@@ -74,13 +80,29 @@ const Login = () => {
                                 margin="normal"
                                 type='password'
                                 variant="outlined"
-                                // required
                                 name='password'
                                 value={user.password}
                                 onChange={handleChange}
                             />
 
-                            <Button variant='outline-primary' type='submit' className='mt-3' >Login</Button>
+                            <Button variant='outline-primary' type='submit' className='mt-3 align-tems-center' disabled={disabled} >
+                                {
+                                    disabled &&(
+                                        <>
+                                            <Spinner
+                                            as="span"
+                                            animation="border"
+                                            style={{borderWidth : '2px'}}
+                                            size="sm"
+                                            role="status"
+                                            aria-hidden="true"
+                                            />
+                                            &nbsp;
+                                        </>
+                                    )
+                                }
+                                 Login
+                            </Button>
                             <br />
                         </form>
                         <div className='text-center'>
