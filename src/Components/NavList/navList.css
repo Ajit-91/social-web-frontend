@@ -10,10 +10,35 @@
     transition: all 0.3s ease-in-out;
     z-index: 10;
     border-radius: 10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
-.user{
+
+.User_Info{
+    pointer-events: none;
+    max-width: 100%;
+}
+
+.User_Info > div {
+    max-width: 100%;
+}
+.User_Info > div > h5{
     text-transform: capitalize;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
+.User_Info > div >small{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: block;
+}
+
+/* .user_info{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+} */
 
 @media  screen and (max-width : 858px){
     .navList{

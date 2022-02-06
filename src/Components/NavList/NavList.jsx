@@ -30,9 +30,9 @@ export default function NavList({setShow}) {
         <div className='navList shadow-lg'>
           <List >
             <ListItem disablePadding>
-              <ListItemButton style={{pointerEvents : "none"}}>
-                <div >
-                  <h5 className='user'>{user?.name}</h5>
+              <ListItemButton className='User_Info' >
+                <div>
+                  <h5>{user?.name}</h5>
                   <small>{user?.email}</small>
                 </div>
               </ListItemButton>
