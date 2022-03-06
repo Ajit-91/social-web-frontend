@@ -12,7 +12,6 @@ import { useState } from 'react';
 import Loading from './Components/Loading';
 import "./pageStyles/app.css"
 const App = () => {
-  // state => state.user.user
   const dispatch = useDispatch()
   const user = useSelector(selectUser);
   const [loading, setLoading] = useState(true);
