@@ -17,7 +17,7 @@ const App = () => {
   const user = useSelector(selectUser);
   const [loading, setLoading] = useState(true);
 
-  
+
   useEffect(() => {
     const storeUser = async () => {
       try {
@@ -35,7 +35,6 @@ const App = () => {
       } catch (err) {
         console.log(err);
       }
-  
     }
   
     storeUser();
