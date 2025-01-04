@@ -17,7 +17,6 @@ const App = () => {
   const user = useSelector(selectUser);
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
     const storeUser = async () => {
       try {
